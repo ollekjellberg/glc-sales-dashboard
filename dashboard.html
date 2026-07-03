@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sales Performance — The Global Living Company</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --espresso:#321D1C; --espresso-2:#48302C; --ink:#241E1C; --muted:#857A72;
+  --paper:#EFEDE7; --card:#FCFBF8; --line:#E3DDD4; --line-2:#D5CCBF;
+  --camel:#A06C44; --clay:#7C5640; --sage:#8A8470; --taupe:#B9AE9C; --slate:#574F49;
+  --good:#5E7355; --warn:#B07B3E; --bad:#A24438;
+  --shadow:0 1px 2px rgba(50,29,28,.04),0 10px 30px rgba(50,29,28,.07);
+  --radius:14px;
+}
+html[data-theme="dark"]{
+  --espresso:#241413; --espresso-2:#3A2622; --ink:#EFE7DE; --muted:#A99E92;
+  --paper:#1A1311; --card:#231A17; --line:#3A2B26; --line-2:#473630;
+  --camel:#BC824F; --taupe:#9c8e77; --slate:#8a7d72;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Jost",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;font-weight:400;letter-spacing:.005em;transition:background .4s,color .4s}
+.wrap{max-width:1320px;margin:0 auto;padding:0 28px 72px}
+
+/* ---------- Brand bar ---------- */
+.topbar{background:var(--espresso);color:#F4EFE8}
+.topbar-in{max-width:1320px;margin:0 auto;padding:18px 28px;display:flex;align-items:center;gap:26px}
+.wordmark{line-height:.9;display:flex;flex-direction:column;align-items:center;text-align:center;padding:1px 0}
+.wordmark .the{font-family:"Jost";font-size:8.5px;letter-spacing:.5em;font-weight:500;opacity:.78;padding-left:.5em;margin-bottom:1px}
+.wordmark .name{font-family:"Playfair Display",serif;font-weight:700;font-size:17px;letter-spacing:.005em;line-height:.92}
+.wordmark .co{font-family:"Jost";font-size:7.5px;letter-spacing:.46em;font-weight:500;opacity:.78;padding-left:.5em;margin-top:2px}
+.bar-div{width:1px;height:38px;background:rgba(244,239,232,.22)}
+.bar-title{font-size:12px;letter-spacing:.34em;text-transform:uppercase;font-weight:500;opacity:.85}
+.bar-cities{margin-left:auto;font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;opacity:.6;font-weight:400}
+.theme-btn{background:rgba(244,239,232,.1);border:1px solid rgba(244,239,232,.18);color:#F4EFE8;
+  width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:14px;display:grid;place-items:center;transition:.25s}
+.theme-btn:hover{background:rgba(244,239,232,.2)}
+
+/* ---------- Person switcher ---------- */
+.person-strip{display:flex;align-items:flex-end;gap:0;border-bottom:1px solid var(--line);margin:30px 0 26px;flex-wrap:wrap}
+.ptab{appearance:none;background:none;border:none;cursor:pointer;padding:8px 4px 16px;margin-right:34px;
+  font-family:"Jost";font-size:15px;font-weight:500;color:var(--muted);position:relative;letter-spacing:.01em;transition:color .2s}
+.ptab .sub{display:block;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;opacity:.7;margin-top:3px}
+.ptab.active{color:var(--ink)}
+.ptab.active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--camel)}
+.ptab:hover{color:var(--ink)}
+.period-wrap{margin-left:auto;display:flex;align-items:center;gap:8px;padding-bottom:12px}
+.period-wrap .lbl{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{appearance:none;background:none;border:none;padding:7px 13px;font-family:"Jost";font-size:12.5px;font-weight:500;
+  color:var(--muted);cursor:pointer;transition:.18s;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:none}
+.seg button.on{background:var(--espresso);color:#F4EFE8}
+.seg button:not(.on):hover{background:var(--paper)}
+
+/* meta line */
+.meta{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:-8px 0 24px}
+.meta .role{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.meta .window{font-size:12.5px;color:var(--muted)}
+.meta .dot{width:4px;height:4px;border-radius:50%;background:var(--line-2)}
+
+/* ---------- Grid + cards ---------- */
+.grid{display:grid;gap:18px}
+.kpis{grid-template-columns:repeat(6,1fr);margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.kpi{padding:18px 18px 16px;display:flex;flex-direction:column;gap:6px;min-height:118px}
+.kpi .k-lab{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.kpi .k-val{font-size:34px;font-weight:600;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.kpi .k-val .u{font-size:16px;font-weight:500;color:var(--muted);margin-left:3px}
+.kpi .k-sub{font-size:11.5px;color:var(--muted);margin-top:auto;display:flex;align-items:center;gap:6px}
+.pill{font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:20px;letter-spacing:.02em}
+.pill.up{background:rgba(94,115,85,.14);color:var(--good)}
+.pill.down{background:rgba(162,78,60,.14);color:var(--bad)}
+.pill.flat{background:var(--paper);color:var(--muted)}
+.spark{height:30px;margin-top:2px}
+
+.panels{grid-template-columns:1.55fr 1fr}
+.row3{grid-template-columns:1fr 1fr 1fr}
+.row2{grid-template-columns:1fr 1fr}
+.panel{padding:20px 22px 22px}
+.p-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px}
+.p-title{font-size:14px;font-weight:600;letter-spacing:.01em}
+.p-eyebrow{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--camel);font-weight:600;margin-bottom:9px}
+.p-note{font-size:11.5px;color:var(--muted)}
+
+/* legend */
+.legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:14px}
+.lg{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink)}
+.lg .sw{width:10px;height:10px;border-radius:3px;flex:none}
+.lg .val{color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* horizontal bars */
+.hbars{display:flex;flex-direction:column;gap:11px;margin-top:6px}
+.hbar{display:grid;grid-template-columns:148px 1fr 44px;align-items:center;gap:12px;font-size:12.5px}
+.hbar .nm{color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hbar .track{height:9px;background:var(--paper);border-radius:6px;overflow:hidden}
+.hbar .fill{height:100%;border-radius:6px;transition:width .6s cubic-bezier(.2,.7,.2,1)}
+.hbar .n{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* match gauge */
+.gauge-wrap{display:flex;align-items:center;gap:22px;margin-top:6px}
+.gauge-num{font-size:44px;font-weight:600;letter-spacing:-.02em;line-height:1}
+.gauge-cap{font-size:11.5px;color:var(--muted);max-width:150px}
+
+/* funnel */
+.funnel{display:flex;flex-direction:column;gap:9px;margin-top:16px}
+.frow{display:grid;grid-template-columns:118px 1fr 34px 40px;align-items:center;gap:11px;font-size:12.5px}
+.frow .fl{color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.frow .ftrack{height:24px;background:var(--paper);border-radius:7px;overflow:hidden}
+.frow .ffill{height:100%;border-radius:7px;transition:width .6s cubic-bezier(.2,.7,.2,1)}
+.frow .fc{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.frow .fp{text-align:right;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* tables */
+.plan-grid{margin-top:8px;font-size:12.5px}
+.plan-row{display:grid;grid-template-columns:1fr 54px 54px;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);align-items:center}
+.plan-row.h{color:var(--muted);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--line-2)}
+.plan-row .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.plan-row .num{text-align:right;font-variant-numeric:tabular-nums}
+.var-pos{color:var(--good);font-weight:600}.var-neg{color:var(--bad);font-weight:600}.var-zero{color:var(--muted)}
+
+/* meetings table */
+.tbl-controls{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 12px}
+.search{flex:1;min-width:180px;display:flex;align-items:center;gap:8px;background:var(--paper);border:1px solid var(--line);
+  border-radius:9px;padding:8px 12px}
+.search input{border:none;background:none;outline:none;font-family:"Jost";font-size:13px;color:var(--ink);width:100%}
+.search input::placeholder{color:var(--muted)}
+.fdrop{position:relative}
+.fdrop select{appearance:none;background:var(--paper);border:1px solid var(--line);border-radius:9px;
+  padding:8px 30px 8px 12px;font-family:"Jost";font-size:12.5px;color:var(--ink);cursor:pointer;outline:none}
+.fdrop::after{content:"▾";position:absolute;right:11px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:11px}
+.daterange{display:flex;align-items:center;gap:7px;background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:6px 11px}
+.daterange .dl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.daterange input{border:none;background:none;outline:none;font-family:"Jost";font-size:12.5px;color:var(--ink);color-scheme:light}
+html[data-theme="dark"] .daterange input{color-scheme:dark}
+.clearbtn{appearance:none;background:none;border:1px solid var(--line);border-radius:9px;padding:8px 12px;
+  font-family:"Jost";font-size:12px;color:var(--muted);cursor:pointer;transition:.18s}
+.clearbtn:hover{border-color:var(--line-2);color:var(--ink)}
+.mtbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.mtbl th{text-align:left;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;
+  padding:9px 10px;border-bottom:1px solid var(--line-2);position:sticky;top:0;background:var(--card)}
+.mtbl td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+.mtbl tr:hover td{background:var(--paper)}
+.tag{display:inline-block;font-size:10.5px;font-weight:500;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.match-y{color:var(--good)}.match-n{color:var(--bad)}.match-r{color:var(--muted)}
+.owner-tag{display:inline-block;font-size:9.5px;font-weight:600;padding:1px 7px;border-radius:20px;letter-spacing:.04em;vertical-align:middle}
+.tbl-scroll{max-height:430px;overflow:auto;border:1px solid var(--line);border-radius:12px}
+.tbl-foot{font-size:11.5px;color:var(--muted);margin-top:10px}
+
+.section-label{font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);font-weight:600;
+  margin:34px 0 14px;display:flex;align-items:center;gap:12px}
+.section-label::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.alerts{display:flex;flex-direction:column;gap:9px;margin-top:6px}
+.alert{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;padding:10px 12px;border-radius:9px;background:var(--paper)}
+.alert .ic{width:18px;height:18px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:10px;color:#fff;margin-top:1px}
+.alert.ok .ic{background:var(--good)}.alert.warn .ic{background:var(--warn)}.alert.bad .ic{background:var(--bad)}
+.alert .t{color:var(--ink)}.alert .t b{font-weight:600}
+
+.footnote{margin-top:30px;font-size:11px;color:var(--muted);line-height:1.7;border-top:1px solid var(--line);padding-top:18px}
+
+@media(max-width:1080px){.kpis{grid-template-columns:repeat(3,1fr)}.panels,.row3,.row2{grid-template-columns:1fr}}
+@media(max-width:640px){.wrap{padding:0 16px 56px}.topbar-in{padding:14px 16px;gap:14px}.bar-title,.bar-cities{display:none}
+  .kpis{grid-template-columns:repeat(2,1fr)}.kpi .k-val{font-size:28px}.period-wrap{margin-left:0;width:100%}
+  .hbar{grid-template-columns:120px 1fr 38px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="wordmark">
+      <span class="the">THE</span>
+      <span class="name">GLOBAL</span>
+      <span class="name">LIVING</span>
+      <span class="co">COMPANY</span>
+    </div>
+    <div class="bar-div"></div>
+    <div class="bar-title">Sales Performance</div>
+    <div class="bar-cities">Dubai — Melbourne — London</div>
+    <button class="theme-btn" id="themeBtn" title="Toggle light / dark" aria-label="Toggle theme">◐</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="person-strip" id="personStrip"></div>
+  <div class="meta" id="meta"></div>
+
+  <div class="grid kpis" id="kpis"></div>
+
+  <div class="grid panels" style="margin-bottom:18px">
+    <div class="card panel">
+      <div class="p-eyebrow">Activity over time</div>
+      <div class="p-head"><div class="p-title">Weekly meeting volume</div><div class="p-note" id="trendNote"></div></div>
+      <div id="trend"></div>
+    </div>
+    <div class="card panel">
+      <div class="p-eyebrow">Forecast accuracy</div>
+      <div class="p-head"><div class="p-title">Expected vs actual outcomes</div></div>
+      <div class="gauge-wrap"><div id="gauge"></div>
+        <div><div class="gauge-num" id="gaugeNum"></div>
+          <div class="gauge-cap">of completed meetings landed the outcome the manager forecast.</div></div></div>
+      <div class="funnel" id="funnel"></div>
+    </div>
+  </div>
+
+  <div class="card panel" id="cohortTrendCard" style="margin-bottom:18px;display:none">
+    <div class="p-eyebrow">Activity over time — by cohort</div>
+    <div class="p-head"><div class="p-title">Weekly meeting volume by client cohort</div>
+      <div class="p-note">19 Jan – 02 Jul 2026</div></div>
+    <div id="cohortTrend"></div>
+    <div class="legend" id="cohortTrendLegend"></div>
+  </div>
+
+  <div class="grid row2" id="recurringRow" style="margin-bottom:18px;display:none">
+    <div class="card panel">
+      <div class="p-eyebrow">Recurring relationships</div>
+      <div class="p-head"><div class="p-title">Top brokers — repeat meetings</div>
+        <div class="p-note">Success = New lead created or Deal progression</div></div>
+      <div class="plan-grid" id="recurringBrokers"></div>
+    </div>
+    <div class="card panel">
+      <div class="p-eyebrow">Recurring relationships</div>
+      <div class="p-head"><div class="p-title">Top developers — repeat meetings</div>
+        <div class="p-note">Success = New lead created or Deal progression</div></div>
+      <div class="plan-grid" id="recurringDevelopers"></div>
+    </div>
+  </div>
+
+  <div class="card panel" id="insightCard" style="margin-bottom:18px;display:none">
+    <div class="p-eyebrow">Insights</div>
+    <div class="p-head"><div class="p-title">Successful meetings by cohort</div>
+      <div class="p-note">Success = New lead created or Deal progression</div></div>
+    <div class="p-note" id="insightHeadline" style="margin:4px 0 12px;font-size:13px;color:var(--ink)"></div>
+    <div class="hbars" id="insightBars"></div>
+  </div>
+
+  <div class="card panel" id="leaderboardCard" style="margin-bottom:18px;display:none">
+    <div class="p-eyebrow">Team leaderboard</div>
+    <div class="p-head"><div class="p-title">Successful-meeting likelihood by salesperson &amp; cohort</div>
+      <div class="fdrop"><select id="lbRange"></select></div></div>
+    <div class="p-note" id="lbRangeNote" style="margin-bottom:8px">Success = New lead created or Deal progression</div>
+    <div class="plan-grid" id="leaderboardGrid"></div>
+  </div>
+
+  <div class="grid row3" id="coachRow" style="margin-bottom:18px;display:none">
+    <div class="card panel">
+      <div class="p-eyebrow">Follow-up momentum</div>
+      <div class="p-head"><div class="p-title">Success climbs with repeat meetings</div></div>
+      <div class="hbars" id="momentumBars"></div>
+      <div class="p-note" id="momentumNote" style="margin-top:12px"></div>
+      <div class="alerts" id="momentumList" style="margin-top:10px"></div>
+    </div>
+    <div class="card panel">
+      <div class="p-eyebrow">Reschedule recovery</div>
+      <div class="p-head"><div class="p-title">Rescheduled clients — recovered vs leaking</div></div>
+      <div class="gauge-wrap"><div id="reschedGauge"></div>
+        <div><div class="gauge-num" id="reschedNum"></div>
+          <div class="gauge-cap" id="reschedCap"></div></div></div>
+      <div class="alerts" id="reschedList" style="margin-top:12px"></div>
+    </div>
+    <div class="card panel">
+      <div class="p-eyebrow">Intent setting</div>
+      <div class="p-head"><div class="p-title">Success rate by expected outcome</div></div>
+      <div class="hbars" id="intentBars"></div>
+      <div class="alerts" id="intentNote" style="margin-top:12px"></div>
+    </div>
+  </div>
+
+  <div class="grid row3" style="margin-bottom:18px">
+    <div class="card panel">
+      <div class="p-eyebrow">Activity mix</div>
+      <div class="p-head"><div class="p-title">Meeting type</div></div>
+      <div id="donut"></div><div class="legend" id="donutLegend"></div>
+    </div>
+    <div class="card panel">
+      <div class="p-eyebrow">Intent</div>
+      <div class="p-head"><div class="p-title">Meeting objective</div></div>
+      <div class="hbars" id="objBars"></div>
+    </div>
+    <div class="card panel">
+      <div class="p-eyebrow">Audience</div>
+      <div class="p-head"><div class="p-title">Client cohort</div></div>
+      <div class="hbars" id="cohortBars"></div>
+    </div>
+  </div>
+
+  <div class="section-label">Conversion</div>
+  <div class="grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:18px" id="convStrip"></div>
+
+  <div class="section-label">This week &amp; last week (from planner)</div>
+  <div class="grid row2" style="margin-bottom:18px">
+    <div class="card panel">
+      <div class="p-eyebrow" id="planEyebrow">Plan</div>
+      <div class="p-head"><div class="p-title">Activity plan — meetings by type</div></div>
+      <div class="plan-grid" id="planGrid"></div>
+    </div>
+    <div class="card panel">
+      <div class="p-eyebrow" id="lastEyebrow">Reconciliation</div>
+      <div class="p-head"><div class="p-title">Last week — target vs actual</div></div>
+      <div class="plan-grid" id="lastGrid"></div>
+    </div>
+  </div>
+
+  <div class="grid row2" style="margin-bottom:18px">
+    <div class="card panel">
+      <div class="p-eyebrow">Outcomes</div>
+      <div class="p-head"><div class="p-title">Actual outcome distribution</div></div>
+      <div class="hbars" id="outcomeBars"></div>
+    </div>
+    <div class="card panel">
+      <div class="p-eyebrow">Attention</div>
+      <div class="p-head"><div class="p-title">Performance flags</div></div>
+      <div class="alerts" id="alerts"></div>
+    </div>
+  </div>
+
+  <div class="section-label">Meeting log</div>
+  <div class="card panel">
+    <div class="p-head"><div class="p-title">All meetings</div><div class="p-note" id="logNote"></div></div>
+    <div class="tbl-controls">
+      <label class="search"><span style="color:var(--muted)">⌕</span>
+        <input id="search" placeholder="Search client, contact, notes…"></label>
+      <div class="fdrop"><select id="fType"></select></div>
+      <div class="fdrop"><select id="fCohort"></select></div>
+      <div class="fdrop"><select id="fMatch">
+        <option value="">All outcomes</option><option value="y">On forecast</option>
+        <option value="n">Off forecast</option><option value="none">No actual yet</option></select></div>
+      <label class="daterange"><span class="dl">From</span><input type="date" id="dFrom"></label>
+      <label class="daterange"><span class="dl">To</span><input type="date" id="dTo"></label>
+      <button class="clearbtn" id="clearDates" title="Clear date range">Clear dates</button>
+    </div>
+    <div class="tbl-scroll"><table class="mtbl"><thead><tr>
+      <th>Date</th><th>Client</th><th>Cohort</th><th>Type</th><th>Objective</th>
+      <th>Expected</th><th>Actual</th><th>Notes</th></tr></thead>
+      <tbody id="logBody"></tbody></table></div>
+    <div class="tbl-foot" id="logFoot"></div>
+  </div>
+
+  <div class="footnote" id="footnote"></div>
+</div>
+
+<script src="data.js"></script>
+<script>/* ============ The Global Living Company — Sales Performance ============ */
+const DATA = window.GLC_DATA;
+/* Tracking window: 19 Jan – 02 Jul 2026 (weeks w/c 2026-01-19 → 2026-06-29) */
+const TRACK_FROM='2026-01-19', TRACK_TO_WEEK='2026-06-29', TRACK_TO_LABEL='02 Jul 2026';
+Object.keys(DATA).forEach(p=>{
+  DATA[p].records = DATA[p].records.filter(r=>r.w && r.w>=TRACK_FROM && r.w<=TRACK_TO_WEEK);
+});
+DATA['David Ives'].role = 'Managing Director';            // updated title
+const REAL_PEOPLE = Object.keys(DATA);
+const TEAM = 'Team — Combined';
+const PEOPLE = [...REAL_PEOPLE, TEAM];
+
+const TYPE_COLORS = {
+  'Intro / first meeting':'#A06C44', 'Existing client meeting':'#321D1C',
+  'New client meeting':'#6E4A37', 'Event':'#8A8470',
+  'Site / showroom visit':'#B9AE9C', 'Internal deal meeting':'#574F49', 'Other':'#C8BEAF'
+};
+const OWNER_COLORS = {'David Ives':'#321D1C','Olle Kjellberg':'#A06C44'};
+const OUTCOME_ORDER = ['New lead created','Send Brochure','Send Referral Agreement',
+  'Qualify opportunity','Proposals / Quotes Issuance','Deal progression','Rescheduled'];
+
+const state = { person: PEOPLE[0], period: 'all', search:'', fType:'', fCohort:'', fMatch:'', dFrom:'', dTo:'' };
+
+const $ = s => document.querySelector(s);
+const fmtN = n => n.toLocaleString('en-US');
+const pct = (a,b) => b ? Math.round(a/b*100) : 0;
+const parseD = s => s ? new Date(s+'T00:00:00') : null;
+
+/* ---------- combined / per-person data resolution ---------- */
+function mergeDashboards(){
+  const ds = REAL_PEOPLE.map(p=>DATA[p].dashboard);
+  const sumByKey = arrs => { const m={}; arrs.flat().forEach(o=>m[o.k]=(m[o.k]||0)+(o.v||0));
+    return Object.keys(m).map(k=>({k,v:m[k]})); };
+  const latest = ds.map(d=>d.thisWeek).filter(Boolean).sort().pop();
+  const latestLast = ds.map(d=>d.lastWeek).filter(Boolean).sort().pop();
+  return {
+    thisWeek: latest, lastWeek: latestLast,
+    planTotal: ds.reduce((s,d)=>s+(d.planTotal||0),0),
+    planByType: sumByKey(ds.map(d=>d.planByType)),
+    expByOutcome: sumByKey(ds.map(d=>d.expByOutcome)),
+    lastWeekTotalActual: ds.reduce((s,d)=>s+(d.lastWeekTotalActual||0),0),
+    lastWeekTotalTarget: ds.reduce((s,d)=>s+(d.lastWeekTotalTarget||0),0),
+    lastWeekOutcomes: (()=>{ const m={}; ds.forEach(d=>d.lastWeekOutcomes.forEach(o=>{
+      m[o.k]=m[o.k]||{k:o.k,t:0,a:0}; m[o.k].t+=o.t; m[o.k].a+=o.a;})); 
+      return Object.values(m).map(o=>({...o,v:o.a-o.t})); })(),
+  };
+}
+let _combined=null;
+function getPersonData(id){
+  if(id!==TEAM) return DATA[id];
+  if(!_combined){
+    const recs=[]; REAL_PEOPLE.forEach(p=>DATA[p].records.forEach(r=>recs.push({...r,who:p})));
+    _combined={role:`${REAL_PEOPLE.length} business development team members`, records:recs, dashboard:mergeDashboards()};
+  }
+  return _combined;
+}
+
+/* ---------- record selection ---------- */
+function allRecords(){ return getPersonData(state.person).records; }
+function maxWeek(){
+  return parseD(TRACK_TO_WEEK); // period windows anchor to the end of the fixed tracking window
+}
+function periodCut(){
+  const mw = maxWeek(); if(!mw) return null;
+  const map = {'4w':4,'8w':8,'12w':12};
+  if(!map[state.period]) return null;
+  const c = new Date(mw); c.setDate(c.getDate()-7*(map[state.period]-1)); return c;
+}
+// records filtered by PERIOD only (drives KPIs + charts)
+function periodRecords(){
+  const cut = periodCut();
+  return allRecords().filter(r=>{
+    if(!cut) return true;
+    const w = parseD(r.w); return w && w >= cut;
+  });
+}
+function scored(recs){ return recs.filter(r=>r.a && r.a!=='Rescheduled'); }
+
+/* ---------- weekly series (zero-filled across the full tracking window) ---------- */
+function trackWeeks(){
+  const weeks=[]; let d=parseD(TRACK_FROM); const end=parseD(TRACK_TO_WEEK);
+  const iso=dt=>dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
+  while(d<=end){ weeks.push(iso(d)); d=new Date(d); d.setDate(d.getDate()+7); }
+  return weeks;
+}
+function weeklySeries(recs){
+  const m = {};
+  trackWeeks().forEach(w=>m[w]={meetings:0,leads:0}); // empty weeks stay visible at zero
+  recs.forEach(r=>{ if(r.w && m[r.w]){ m[r.w].meetings++; if(r.a==='New lead created')m[r.w].leads++; }});
+  const cut = periodCut();
+  return Object.keys(m).sort()
+    .filter(w=>{ if(!cut) return true; const d=parseD(w); return d && d>=cut; })
+    .map(w=>({week:w,...m[w]}));
+}
+
+/* ============ SVG chart helpers ============ */
+function lineChart(series, w=560, h=180){
+  if(!series.length) return '<div class="p-note">No data.</div>';
+  const padL=8,padR=8,padT=14,padB=22, iw=w-padL-padR, ih=h-padT-padB;
+  const max = Math.max(...series.map(d=>d.meetings),1);
+  const n = series.length;
+  const x = i => padL + (n===1?iw/2:i*iw/(n-1));
+  const y = v => padT + ih - (v/max)*ih;
+  const pts = series.map((d,i)=>[x(i),y(d.meetings)]);
+  const line = pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  const area = line+` L ${x(n-1).toFixed(1)} ${padT+ih} L ${x(0).toFixed(1)} ${padT+ih} Z`;
+  let grid='';
+  for(let g=0; g<=2; g++){ const gy=padT+ih*g/2; const gv=Math.round(max*(1-g/2));
+    grid+=`<line x1="${padL}" y1="${gy}" x2="${w-padR}" y2="${gy}" stroke="var(--line)" stroke-width="1"/>
+    <text x="${padL}" y="${gy-4}" font-size="9" fill="var(--muted)">${gv}</text>`; }
+  // x labels: first, mid, last
+  const labIdx=[0,Math.floor((n-1)/2),n-1].filter((v,i,a)=>a.indexOf(v)===i);
+  const labels = labIdx.map(i=>{ const d=parseD(series[i].week);
+    const t=d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
+    const anc = i===0?'start':(i===n-1?'end':'middle');
+    return `<text x="${x(i).toFixed(1)}" y="${h-6}" font-size="9.5" fill="var(--muted)" text-anchor="${anc}">${t}</text>`;
+  }).join('');
+  const dots = pts.map((p,i)=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${i===n-1?3.4:2.2}" fill="${i===n-1?'var(--camel)':'var(--espresso)'}"/>`).join('');
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" preserveAspectRatio="none" style="display:block">
+    <defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--camel)" stop-opacity=".22"/>
+      <stop offset="1" stop-color="var(--camel)" stop-opacity="0"/></linearGradient></defs>
+    ${grid}<path d="${area}" fill="url(#ag)"/>
+    <path d="${line}" fill="none" stroke="var(--espresso)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    ${dots}${labels}</svg>`;
+}
+
+function sparkline(series, w=140, h=30){
+  if(series.length<2) return '';
+  const max=Math.max(...series.map(d=>d.meetings),1);
+  const x=i=>i*w/(series.length-1), y=v=>h-2-(v/max)*(h-4);
+  const line=series.map((d,i)=>(i?'L':'M')+x(i).toFixed(1)+' '+y(d.meetings).toFixed(1)).join(' ');
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" width="100%" preserveAspectRatio="none">
+    <path d="${line}" fill="none" stroke="var(--camel)" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+}
+
+function donut(items, size=176){
+  const total=items.reduce((s,i)=>s+i.v,0); const r=size/2, ir=r*0.62, cx=r, cy=r;
+  if(!total) return '<div class="p-note">No data.</div>';
+  let a=-Math.PI/2, segs='';
+  items.forEach(it=>{ const frac=it.v/total, a2=a+frac*2*Math.PI;
+    const big=frac>0.5?1:0;
+    const x1=cx+r*Math.cos(a),y1=cy+r*Math.sin(a),x2=cx+r*Math.cos(a2),y2=cy+r*Math.sin(a2);
+    const xi2=cx+ir*Math.cos(a2),yi2=cy+ir*Math.sin(a2),xi1=cx+ir*Math.cos(a),yi1=cy+ir*Math.sin(a);
+    segs+=`<path d="M${x1} ${y1} A${r} ${r} 0 ${big} 1 ${x2} ${y2} L${xi2} ${yi2} A${ir} ${ir} 0 ${big} 0 ${xi1} ${yi1} Z" fill="${it.c}"><title>${it.k}: ${it.v}</title></path>`;
+    a=a2; });
+  return `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" style="display:block;margin:6px auto 0">
+    ${segs}<text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="26" font-weight="600" fill="var(--ink)">${total}</text>
+    <text x="${cx}" y="${cy+13}" text-anchor="middle" font-size="9.5" letter-spacing=".12em" fill="var(--muted)">MEETINGS</text></svg>`;
+}
+
+function gaugeRing(p, size=104){
+  const r=size/2, sw=11, rad=r-sw/2-1, c=2*Math.PI*rad, off=c*(1-p/100);
+  return `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" style="transform:rotate(-90deg)">
+    <circle cx="${r}" cy="${r}" r="${rad}" fill="none" stroke="var(--line)" stroke-width="${sw}"/>
+    <circle cx="${r}" cy="${r}" r="${rad}" fill="none" stroke="var(--camel)" stroke-width="${sw}"
+      stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}"
+      style="transition:stroke-dashoffset .8s cubic-bezier(.2,.7,.2,1)"/></svg>`;
+}
+
+function hbars(items, colorFn){
+  const max=Math.max(...items.map(i=>i.v),1);
+  return items.map(it=>`<div class="hbar"><span class="nm" title="${it.k}">${it.k}</span>
+    <div class="track"><div class="fill" style="width:${(it.v/max*100).toFixed(1)}%;background:${colorFn(it)}"></div></div>
+    <span class="n">${it.v}</span></div>`).join('');
+}
+
+/* ============ Renders ============ */
+function renderPersonStrip(){
+  $('#personStrip').innerHTML = PEOPLE.map(p=>{
+    const role = getPersonData(p).role;
+    return `<button class="ptab ${p===state.person?'active':''}" data-p="${p}">${p}
+      <span class="sub">${role}</span></button>`;
+  }).join('') + `
+    <div class="period-wrap"><span class="lbl">Period</span>
+      <div class="seg" id="periodSeg">
+        <button data-pe="4w" class="${state.period==='4w'?'on':''}">4 wk</button>
+        <button data-pe="8w" class="${state.period==='8w'?'on':''}">8 wk</button>
+        <button data-pe="12w" class="${state.period==='12w'?'on':''}">12 wk</button>
+        <button data-pe="all" class="${state.period==='all'?'on':''}">All</button>
+      </div></div>`;
+  $('#personStrip').querySelectorAll('.ptab').forEach(b=>b.onclick=()=>{state.person=b.dataset.p;resetFilters();renderAll();});
+  $('#periodSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{state.period=b.dataset.pe;renderAll();});
+}
+
+function renderMeta(){
+  const recs=allRecords();
+  const dates=recs.map(r=>parseD(r.d)).filter(Boolean).sort((a,b)=>a-b);
+  const fmt=d=>d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+  const win = '19 Jan 2026 – 02 Jul 2026';
+  const pl = {'4w':'Last 4 weeks','8w':'Last 8 weeks','12w':'Last 12 weeks','all':'Full tracked period'}[state.period];
+  $('#meta').innerHTML=`<span class="role">${getPersonData(state.person).role}</span><span class="dot"></span>
+    <span class="window">Tracking window ${win}</span><span class="dot"></span>
+    <span class="window">${recs.length} meetings logged · viewing: ${pl}</span>`;
+}
+
+function renderKPIs(){
+  const recs=periodRecords(), sc=scored(recs), all=allRecords();
+  const ws=weeklySeries(recs), wsAll=weeklySeries(all);
+  const leads=recs.filter(r=>r.a==='New lead created').length;
+  const props=recs.filter(r=>r.a==='Proposals / Quotes Issuance').length;
+  const deals=recs.filter(r=>r.a==='Deal progression').length;
+  const matched=sc.filter(r=>r.a===r.e).length;
+  const matchRate=pct(matched,sc.length);
+  // this week vs prior week
+  const last=wsAll[wsAll.length-1], prev=wsAll[wsAll.length-2];
+  const wow = (last&&prev)? last.meetings-prev.meetings : 0;
+  const plan = getPersonData(state.person).dashboard.planTotal;
+  const cards=[
+    {lab:'Meetings',val:recs.length,sub:`across ${ws.filter(w=>w.meetings>0).length} active weeks`,spark:ws},
+    {lab:'Latest week',val:last?last.meetings:0,
+      sub:`<span class="pill ${wow>0?'up':wow<0?'down':'flat'}">${wow>0?'▲':wow<0?'▼':'–'} ${Math.abs(wow)} vs prior</span>`},
+    {lab:'Outcome match',val:matchRate,u:'%',sub:`${matched} of ${sc.length} on forecast`},
+    {lab:'New leads',val:leads,sub:`${pct(leads,recs.length)}% of meetings`},
+    {lab:'Proposals issued',val:props,sub:`${pct(props,recs.length)}% of meetings`},
+    {lab:'Deal progressions',val:deals,sub:`${pct(deals,recs.length)}% of meetings`},
+  ];
+  $('#kpis').innerHTML=cards.map(c=>`<div class="card kpi">
+    <div class="k-lab">${c.lab}</div>
+    <div class="k-val">${fmtN(c.val)}${c.u?`<span class="u">${c.u}</span>`:''}</div>
+    ${c.spark?sparkline(c.spark):''}
+    <div class="k-sub">${c.sub}</div></div>`).join('');
+}
+
+function renderTrend(){
+  const recs=periodRecords(), ws=weeklySeries(recs);
+  $('#trend').innerHTML=lineChart(ws);
+  const tot=recs.length, avg=ws.length?(tot/ws.length).toFixed(1):0;
+  $('#trendNote').textContent=`avg ${avg} / week`;
+}
+
+/* ---------- David Ives: weekly volume by cohort (multi-line) ---------- */
+const COHORT_LINES = [
+  {k:'Broker',              c:'#C0392B'},  // red
+  {k:'Developer',           c:'#2E6FB7'},  // blue
+  {k:'Investor/End client', c:'#D9A400'},  // yellow
+  {k:'Holiday Homes',       c:'#4C8C4A'},  // green
+  {k:'Other',               c:'#8C8C8C'},  // grey
+];
+function cohortWeeklySeries(recs, from, to){
+  // all Monday weeks in range, zero-filled
+  const weeks=[]; let d=parseD(from);
+  const end=parseD(to);
+  const iso=dt=>dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
+  while(d<=end){ weeks.push(iso(d)); d=new Date(d); d.setDate(d.getDate()+7); }
+  const tab={}; weeks.forEach(w=>tab[w]={});
+  recs.forEach(r=>{ if(r.w && tab[r.w]!==undefined && r.co){ tab[r.w][r.co]=(tab[r.w][r.co]||0)+1; }});
+  return weeks.map(w=>({week:w, counts:tab[w]}));
+}
+function multiLineChart(series, lines, w=1160, h=240){
+  if(!series.length) return '<div class="p-note">No data.</div>';
+  const padL=26,padR=14,padT=16,padB=26, iw=w-padL-padR, ih=h-padT-padB;
+  const n=series.length;
+  const max=Math.max(1,...series.map(s=>Math.max(...lines.map(l=>s.counts[l.k]||0))));
+  const x=i=>padL+(n===1?iw/2:i*iw/(n-1));
+  const y=v=>padT+ih-(v/max)*ih;
+  let grid='';
+  const steps=4;
+  for(let g=0;g<=steps;g++){ const gy=padT+ih*g/steps; const gv=Math.round(max*(1-g/steps));
+    grid+=`<line x1="${padL}" y1="${gy}" x2="${w-padR}" y2="${gy}" stroke="var(--line)" stroke-width="1"/>
+    <text x="${padL-6}" y="${gy+3}" font-size="9.5" fill="var(--muted)" text-anchor="end">${gv}</text>`; }
+  // x labels at ~3-month increments: first, +3 months, last
+  const fmt=s=>parseD(s).toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
+  const labIdx=[0, Math.round((n-1)/2), n-1].filter((v,i,a)=>a.indexOf(v)===i);
+  const labels=labIdx.map(i=>{
+    const anc=i===0?'start':(i===n-1?'end':'middle');
+    return `<text x="${x(i).toFixed(1)}" y="${h-7}" font-size="10" fill="var(--muted)" text-anchor="${anc}">${fmt(series[i].week)}</text>`;
+  }).join('');
+  const paths=lines.map(l=>{
+    const pts=series.map((s,i)=>[x(i),y(s.counts[l.k]||0)]);
+    const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+    const dots=pts.map(p=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2.4" fill="${l.c}"><title>${l.k}</title></circle>`).join('');
+    return `<path d="${d}" fill="none" stroke="${l.c}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>${dots}`;
+  }).join('');
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" preserveAspectRatio="none" style="display:block">${grid}${paths}${labels}</svg>`;
+}
+function renderCohortTrend(){
+  const card=$('#cohortTrendCard');
+  if(state.person===TEAM){ card.style.display='none'; return; }
+  card.style.display='';
+  const recs=DATA[state.person].records.filter(r=>r.w && r.w>=TRACK_FROM && r.w<=TRACK_TO_WEEK);
+  const series=cohortWeeklySeries(recs,TRACK_FROM,TRACK_TO_WEEK); // week of 29 Jun covers 02 Jul
+  $('#cohortTrend').innerHTML=multiLineChart(series,COHORT_LINES);
+  $('#cohortTrendLegend').innerHTML=COHORT_LINES.map(l=>{
+    const tot=series.reduce((s,wk)=>s+(wk.counts[l.k]||0),0);
+    return `<span class="lg"><span class="sw" style="background:${l.c}"></span>${l.k} <span class="val">${tot}</span></span>`;
+  }).join('');
+}
+
+/* ---------- recurring clients: top brokers / developers ---------- */
+function clientStatsForCohort(recs, cohort){
+  const m={};
+  recs.forEach(r=>{
+    if(r.co!==cohort) return;
+    const key=(r.c||'').trim(); if(!key) return;
+    m[key]=m[key]||{name:key,n:0,s:0};
+    m[key].n++;
+    if(SUCCESS_OUTCOMES.includes(r.a)) m[key].s++;
+  });
+  return Object.values(m)
+    .filter(c=>c.n>=2)                 // "recurring" = 2+ meetings
+    .map(c=>({...c,rate:pct(c.s,c.n)}))
+    .sort((a,b)=>b.n-a.n||b.rate-a.rate);
+}
+function recurringTable(list, cap=8){
+  if(!list.length) return `<div class="p-note" style="margin-top:8px">No recurring relationships (2+ meetings) found yet in this cohort.</div>`;
+  let g=`<div class="plan-row h"><span>Client</span><span class="num">Meetings</span><span class="num">Success</span></div>`;
+  g+=list.slice(0,cap).map(c=>`<div class="plan-row">
+    <span class="nm" style="font-weight:500">${c.name}</span>
+    <span class="num" style="color:var(--muted)">${c.n}</span>
+    <span class="num" style="font-weight:600">${c.rate}% <span style="font-weight:400;color:var(--muted);font-size:11px">(${c.s}/${c.n})</span></span></div>`).join('');
+  if(list.length>cap) g+=`<div class="p-note" style="margin-top:8px">+${list.length-cap} more recurring ${list.length-cap===1?'client':'clients'} in the meeting log.</div>`;
+  return g;
+}
+function renderRecurringClients(){
+  const row=$('#recurringRow');
+  if(state.person===TEAM){ row.style.display='none'; return; }
+  row.style.display='';
+  const recs=DATA[state.person].records;
+  $('#recurringBrokers').innerHTML=recurringTable(clientStatsForCohort(recs,'Broker'));
+  $('#recurringDevelopers').innerHTML=recurringTable(clientStatsForCohort(recs,'Developer'));
+}
+
+/* ---------- successful-meeting insights ---------- */
+const SUCCESS_OUTCOMES = ['New lead created','Deal progression'];
+function cohortSuccessStats(recs){
+  const m={};
+  recs.forEach(r=>{
+    if(!r.co) return;
+    m[r.co]=m[r.co]||{k:r.co,n:0,s:0};
+    m[r.co].n++;
+    if(SUCCESS_OUTCOMES.includes(r.a)) m[r.co].s++;
+  });
+  return Object.values(m).map(o=>({...o,rate:pct(o.s,o.n)})).sort((a,b)=>b.rate-a.rate||b.n-a.n);
+}
+function renderInsights(){
+  const card=$('#insightCard');
+  if(state.person===TEAM){ card.style.display='none'; return; }
+  card.style.display='';
+  const stats=cohortSuccessStats(DATA[state.person].records);
+  if(!stats.length){ $('#insightBars').innerHTML='<div class="p-note">No data.</div>'; $('#insightHeadline').textContent=''; return; }
+  const MIN_N=5;
+  const reliable=stats.filter(s=>s.n>=MIN_N);
+  const best=(reliable.length?reliable:stats)[0];
+  const first=state.person.split(' ')[0];
+  $('#insightHeadline').innerHTML=
+    `Based on ${stats.reduce((t,s)=>t+s.n,0)} logged meetings, <b>${first}</b> is most likely to have a successful meeting with `+
+    `<b>${best.k}</b> — <b>${best.rate}%</b> of those meetings produced a new lead or deal progression (${best.s} of ${best.n}).`+
+    (reliable.length<stats.length?` <span style="color:var(--muted)">Cohorts with fewer than ${MIN_N} meetings are shown below but excluded from the headline.</span>`:'');
+  const lc=Object.fromEntries(COHORT_LINES.map(l=>[l.k,l.c]));
+  $('#insightBars').innerHTML=stats.map(s=>`<div class="hbar">
+    <span class="nm" title="${s.k}">${s.k}${s.n<MIN_N?' <span style="color:var(--muted);font-size:10px">(low sample)</span>':''}</span>
+    <div class="track"><div class="fill" style="width:${s.rate}%;background:${lc[s.k]||'var(--slate)'}"></div></div>
+    <span class="n" title="${s.s} successful of ${s.n} meetings">${s.rate}%</span></div>`).join('')+
+    `<div class="p-note" style="margin-top:8px">${stats.map(s=>`${s.k}: ${s.s}/${s.n}`).join(' · ')}</div>`;
+}
+const LB_RANGES = [
+  {id:'all', lab:'Full period (19 Jan – 02 Jul)', from:'2026-01-19', to:'2026-07-02'},
+  {id:'4w',  lab:'Last 4 weeks',  from:'2026-06-08', to:'2026-07-02'},
+  {id:'8w',  lab:'Last 8 weeks',  from:'2026-05-11', to:'2026-07-02'},
+  {id:'12w', lab:'Last 12 weeks', from:'2026-04-13', to:'2026-07-02'},
+  {id:'jan', lab:'January 2026',  from:'2026-01-19', to:'2026-01-31'},
+  {id:'feb', lab:'February 2026', from:'2026-02-01', to:'2026-02-28'},
+  {id:'mar', lab:'March 2026',    from:'2026-03-01', to:'2026-03-31'},
+  {id:'apr', lab:'April 2026',    from:'2026-04-01', to:'2026-04-30'},
+  {id:'may', lab:'May 2026',      from:'2026-05-01', to:'2026-05-31'},
+  {id:'jun', lab:'June 2026',     from:'2026-06-01', to:'2026-07-02'},
+];
+state.lbRange='all';
+function lbFilteredRecords(p){
+  const rg=LB_RANGES.find(r=>r.id===state.lbRange)||LB_RANGES[0];
+  return DATA[p].records.filter(r=>{
+    const d=r.d||r.w; return d && d>=rg.from && d<=rg.to;
+  });
+}
+function renderLeaderboard(){
+  const card=$('#leaderboardCard');
+  if(state.person!==TEAM){ card.style.display='none'; return; }
+  card.style.display='';
+  const rg=LB_RANGES.find(r=>r.id===state.lbRange)||LB_RANGES[0];
+  $('#lbRange').innerHTML=LB_RANGES.map(r=>`<option value="${r.id}" ${r.id===state.lbRange?'selected':''}>${r.lab}</option>`).join('');
+  const rows=[];
+  REAL_PEOPLE.forEach(p=>cohortSuccessStats(lbFilteredRecords(p)).forEach(s=>rows.push({p,...s})));
+  rows.sort((a,b)=>b.rate-a.rate||b.s-a.s);
+  const totalMeetings=rows.reduce((t,r)=>t+r.n,0);
+  $('#lbRangeNote').textContent=`Success = New lead created or Deal progression · ${rg.lab} · ${totalMeetings} meetings in range`;
+  if(!rows.length){ $('#leaderboardGrid').innerHTML='<div class="p-note" style="margin-top:10px">No meetings logged in this range.</div>'; return; }
+  const lc=Object.fromEntries(COHORT_LINES.map(l=>[l.k,l.c]));
+  let g=`<div class="plan-row h" style="grid-template-columns:26px 1fr 1fr 2fr 64px 60px"><span>#</span><span>Salesperson</span><span>Cohort</span><span></span><span class="num">Succ.</span><span class="num">Chance</span></div>`;
+  g+=rows.map((r,i)=>{
+    const oc=OWNER_COLORS[r.p]||'var(--slate)';
+    const cc=lc[r.k]||'var(--slate)';
+    return `<div class="plan-row" style="grid-template-columns:26px 1fr 1fr 2fr 64px 60px">
+      <span style="color:var(--muted)">${i+1}</span>
+      <span><span class="owner-tag" style="background:${oc}1f;color:${oc}">${r.p.split(' ')[0]}</span></span>
+      <span class="nm">${r.k}${r.n<5?' <span style="color:var(--muted);font-size:10px">(low sample)</span>':''}</span>
+      <span><div class="track" style="height:9px;background:var(--paper);border-radius:6px;overflow:hidden"><div class="fill" style="height:100%;border-radius:6px;width:${r.rate}%;background:${cc}"></div></div></span>
+      <span class="num" style="color:var(--muted)">${r.s}/${r.n}</span>
+      <span class="num" style="font-weight:600">${r.rate}%</span></div>`;
+  }).join('');
+  $('#leaderboardGrid').innerHTML=g;
+}
+
+/* ---------- coaching insights: momentum, reschedule recovery, intent ---------- */
+const LOW_INTENT = ['Send Brochure','Send Referral Agreement'];
+function clientKey(r){ return (r.c||'').trim().toLowerCase(); }
+function renderCoachInsights(){
+  const row=$('#coachRow');
+  if(state.person===TEAM){ row.style.display='none'; return; }
+  row.style.display='';
+  const recs=DATA[state.person].records;
+  const first=state.person.split(' ')[0];
+  const fmt=s=>{const d=parseD(s);return d?d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}):'—';};
+
+  /* 1 — follow-up momentum */
+  const seq={}, buckets={'1st meeting':[0,0],'2nd–3rd meeting':[0,0],'4th meeting +':[0,0]};
+  const byClient={};
+  [...recs].sort((a,b)=>(a.d||a.w||'').localeCompare(b.d||b.w||'')).forEach(r=>{
+    const c=clientKey(r); if(!c) return;
+    seq[c]=(seq[c]||0)+1;
+    const b=seq[c]===1?'1st meeting':(seq[c]<=3?'2nd–3rd meeting':'4th meeting +');
+    buckets[b][0]++; if(SUCCESS_OUTCOMES.includes(r.a)) buckets[b][1]++;
+    byClient[c]=byClient[c]||{name:r.c.trim(),n:0,succ:0,last:''};
+    byClient[c].n++; if(SUCCESS_OUTCOMES.includes(r.a)) byClient[c].succ++;
+    if((r.d||'')>byClient[c].last) byClient[c].last=r.d||'';
+  });
+  $('#momentumBars').innerHTML=Object.keys(buckets).map(k=>{
+    const [n,s]=buckets[k], rate=pct(s,n);
+    return `<div class="hbar"><span class="nm">${k}</span>
+      <div class="track"><div class="fill" style="width:${rate}%;background:var(--camel)"></div></div>
+      <span class="n" title="${s} successful of ${n}">${rate}%</span></div>`;
+  }).join('');
+  const stalled=Object.values(byClient).filter(c=>c.n===1&&c.succ===0)
+    .sort((a,b)=>b.last.localeCompare(a.last));
+  $('#momentumNote').innerHTML=`The money is in the follow-up: <b>${stalled.length} client${stalled.length===1?'':'s'}</b> met once with no successful outcome and no second meeting booked.`;
+  const SHOW=8;
+  $('#momentumList').innerHTML = stalled.length
+    ? `<div class="alert warn"><span class="ic">!</span><span class="t"><b>Call sheet:</b> ${stalled.slice(0,SHOW).map(c=>`${c.name} <span style="color:var(--muted)">(${fmt(c.last)})</span>`).join(' · ')}${stalled.length>SHOW?` <span style="color:var(--muted)">+${stalled.length-SHOW} more in the meeting log</span>`:''}</span></div>`
+    : `<div class="alert ok"><span class="ic">✓</span><span class="t">No clients stalled at a single meeting.</span></div>`;
+
+  /* 2 — reschedule recovery */
+  const reschedClients={};
+  recs.forEach(r=>{
+    const c=clientKey(r); if(!c) return;
+    if(r.a==='Rescheduled'||/resched/i.test(r.n||'')) reschedClients[c]=reschedClients[c]||{name:r.c.trim(),last:''};
+  });
+  Object.keys(reschedClients).forEach(c=>{
+    const later=recs.filter(r=>clientKey(r)===c);
+    reschedClients[c].recovered=later.some(r=>SUCCESS_OUTCOMES.includes(r.a));
+    reschedClients[c].last=later.map(r=>r.d||'').sort().pop()||'';
+  });
+  const rl=Object.values(reschedClients);
+  const rec=rl.filter(c=>c.recovered).length, rate=pct(rec,rl.length);
+  $('#reschedGauge').innerHTML=gaugeRing(rate);
+  $('#reschedNum').textContent=rate+'%';
+  $('#reschedCap').textContent=`of ${rl.length} rescheduled clients later produced a lead or deal progression.`;
+  const leaking=rl.filter(c=>!c.recovered).sort((a,b)=>b.last.localeCompare(a.last));
+  $('#reschedList').innerHTML = leaking.length
+    ? `<div class="alert warn"><span class="ic">!</span><span class="t"><b>${leaking.length} leaking</b> — rescheduled, never converted: ${leaking.slice(0,SHOW).map(c=>c.name).join(' · ')}${leaking.length>SHOW?` <span style="color:var(--muted)">+${leaking.length-SHOW} more</span>`:''}</span></div>`
+    : `<div class="alert ok"><span class="ic">✓</span><span class="t">Every rescheduled client was recovered. Keep it up.</span></div>`;
+
+  /* 3 — intent setting */
+  const im={};
+  recs.forEach(r=>{ const e=r.e; if(!e) return; im[e]=im[e]||[0,0]; im[e][0]++; if(SUCCESS_OUTCOMES.includes(r.a)) im[e][1]++; });
+  const irows=Object.keys(im).map(k=>({k,n:im[k][0],s:im[k][1],rate:pct(im[k][1],im[k][0])}))
+    .sort((a,b)=>b.rate-a.rate);
+  $('#intentBars').innerHTML=irows.map(r=>`<div class="hbar">
+    <span class="nm" title="${r.k}">${r.k}</span>
+    <div class="track"><div class="fill" style="width:${r.rate}%;background:${LOW_INTENT.includes(r.k)?'var(--taupe)':'var(--clay)'}"></div></div>
+    <span class="n" title="${r.s} of ${r.n}">${r.rate}%</span></div>`).join('');
+  const lowN=recs.filter(r=>LOW_INTENT.includes(r.e)).length;
+  const lowShare=pct(lowN,recs.length);
+  const hi=irows.find(r=>r.k==='Deal progression');
+  $('#intentNote').innerHTML=`<div class="alert ${lowShare>=30?'warn':'ok'}"><span class="ic">${lowShare>=30?'!':'✓'}</span>
+    <span class="t"><b>${lowShare}%</b> of ${first}'s diary is booked with a low-intent expectation (brochure / referral agreement) — those meetings succeed ~${pct(irows.filter(r=>LOW_INTENT.includes(r.k)).reduce((s,r)=>s+r.s,0), lowN||1)}% of the time, vs <b>${hi?hi.rate:0}%</b> when the ask going in is deal progression. Raise the ask before the meeting, or qualify harder before booking it.</span></div>
+    <div class="alert ok" style="margin-top:6px"><span class="ic">i</span><span class="t" style="color:var(--muted)">Correlation, not guarantee — hot deals get booked with bolder asks. Use as a prompt to upgrade the objective where the relationship supports it.</span></div>`;
+}
+
+function renderForecast(){
+  const sc=scored(periodRecords());
+  const matched=sc.filter(r=>r.a===r.e).length;
+  const rate=pct(matched,sc.length);
+  $('#gauge').innerHTML=gaugeRing(rate);
+  $('#gaugeNum').textContent=rate+'%';
+  // funnel from actual outcomes
+  const recs=periodRecords();
+  const cnt=a=>recs.filter(r=>r.a===a).length;
+  const steps=[
+    {k:'Meetings held',v:recs.length,c:'var(--espresso)'},
+    {k:'Qualified',v:cnt('Qualify opportunity'),c:'var(--clay)'},
+    {k:'Proposals issued',v:cnt('Proposals / Quotes Issuance'),c:'var(--camel)'},
+    {k:'Deal progression',v:cnt('Deal progression'),c:'var(--sage)'},
+  ];
+  const max=steps[0].v||1;
+  $('#funnel').innerHTML=steps.map((s,i)=>{
+    const w=Math.max(s.v/max*100,4);
+    const conv=i===0?'100%':`${pct(s.v,steps[0].v)}%`;
+    return `<div class="frow"><span class="fl" title="${s.k}">${s.k}</span>
+      <div class="ftrack"><div class="ffill" style="width:${w}%;background:${s.c}"></div></div>
+      <span class="fc">${s.v}</span><span class="fp">${conv}</span></div>`;
+  }).join('');
+}
+
+function renderBreakdowns(){
+  const recs=periodRecords();
+  const tally=(key,order)=>{ const m={}; recs.forEach(r=>{const v=r[key]; if(v)m[v]=(m[v]||0)+1;});
+    let arr=Object.keys(m).map(k=>({k,v:m[k]}));
+    if(order) arr.sort((a,b)=>order.indexOf(a.k)-order.indexOf(b.k)); else arr.sort((a,b)=>b.v-a.v);
+    return arr; };
+  // donut: meeting type (untyped -> Other so total reconciles)
+  const tm={}; recs.forEach(r=>{const v=r.t||'Other'; tm[v]=(tm[v]||0)+1;});
+  const types=Object.keys(tm).map(k=>({k,v:tm[k]})).sort((a,b)=>b.v-a.v).map(i=>({...i,c:TYPE_COLORS[i.k]||TYPE_COLORS.Other}));
+  $('#donut').innerHTML=donut(types);
+  const tot=types.reduce((s,i)=>s+i.v,0);
+  $('#donutLegend').innerHTML=types.map(i=>`<span class="lg"><span class="sw" style="background:${i.c}"></span>
+    ${i.k} <span class="val">${i.v} · ${pct(i.v,tot)}%</span></span>`).join('');
+  // objectives
+  $('#objBars').innerHTML=hbars(tally('o'),()=>'var(--clay)');
+  // cohort
+  $('#cohortBars').innerHTML=hbars(tally('co'),()=>'var(--espresso)');
+  // outcomes
+  $('#outcomeBars').innerHTML=hbars(tally('a',OUTCOME_ORDER),it=>it.k==='Rescheduled'?'var(--taupe)':'var(--camel)');
+}
+
+function renderConversion(){
+  const recs=periodRecords(), sc=scored(recs), n=recs.length;
+  const cnt=a=>recs.filter(r=>r.a===a).length;
+  const matched=sc.filter(r=>r.a===r.e).length;
+  const metrics=[
+    {lab:'Meeting → Lead',v:pct(cnt('New lead created'),n)},
+    {lab:'Meeting → Qualified',v:pct(cnt('Qualify opportunity'),n)},
+    {lab:'Meeting → Proposal',v:pct(cnt('Proposals / Quotes Issuance'),n)},
+    {lab:'Meeting → Deal progression',v:pct(cnt('Deal progression'),n)},
+    {lab:'Forecast accuracy',v:pct(matched,sc.length)},
+  ];
+  $('#convStrip').innerHTML=metrics.map(m=>`<div class="card kpi" style="min-height:96px">
+    <div class="k-lab">${m.lab}</div><div class="k-val">${m.v}<span class="u">%</span></div></div>`).join('');
+}
+
+function renderPlanLastWeek(){
+  const db=getPersonData(state.person).dashboard;
+  const fmt=s=>{const d=parseD(s);return d?d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}):'—';};
+  $('#planEyebrow').textContent=`Week commencing ${fmt(db.thisWeek)}`;
+  $('#lastEyebrow').textContent=`Week commencing ${fmt(db.lastWeek)}`;
+  // plan by type (planned vs target — workbook holds planned only; show planned count)
+  let pg=`<div class="plan-row h"><span>Meeting type</span><span class="num">Plan</span><span class="num">Exp.</span></div>`;
+  pg+=`<div class="plan-row"><span class="nm" style="font-weight:600">Total meetings</span>
+    <span class="num" style="font-weight:600">${db.planTotal}</span><span class="num">—</span></div>`;
+  db.planByType.forEach(t=>{ if(t.v>0||['Intro / first meeting','Existing client meeting','New client meeting'].includes(t.k))
+    pg+=`<div class="plan-row"><span class="nm">${t.k}</span><span class="num">${t.v}</span><span class="num">—</span></div>`; });
+  pg+=`<div class="plan-row h" style="margin-top:6px"><span>Expected outcome</span><span class="num"></span><span class="num">Target</span></div>`;
+  db.expByOutcome.forEach(o=>{ if(o.v>0) pg+=`<div class="plan-row"><span class="nm">${o.k}</span><span class="num">—</span><span class="num">${o.v}</span></div>`; });
+  if(db.planTotal===0) pg+=`<div class="p-note" style="margin-top:10px">No forward plan entered for this week yet.</div>`;
+  $('#planGrid').innerHTML=pg;
+  // last week
+  let lg=`<div class="plan-row h"><span>Outcome</span><span class="num">Target</span><span class="num">Actual</span></div>`;
+  lg+=`<div class="plan-row"><span class="nm" style="font-weight:600">Total meetings</span>
+    <span class="num" style="font-weight:600">${db.lastWeekTotalTarget}</span>
+    <span class="num" style="font-weight:600">${db.lastWeekTotalActual}</span></div>`;
+  db.lastWeekOutcomes.forEach(o=>{
+    const v=o.a-o.t; const cls=v>0?'var-pos':v<0?'var-neg':'var-zero';
+    lg+=`<div class="plan-row"><span class="nm">${o.k}</span><span class="num">${o.t}</span>
+      <span class="num ${cls}">${o.a}${v?` (${v>0?'+':''}${v})`:''}</span></div>`; });
+  $('#lastGrid').innerHTML=lg;
+}
+
+function renderAlerts(){
+  const recs=periodRecords(), all=allRecords();
+  const a=[];
+  const missing=recs.filter(r=>!r.a||r.a.trim()===''&&r.d).length;
+  const missingTrue=recs.filter(r=>(!r.a||r.a==='')).length;
+  if(missingTrue>0) a.push({t:'warn',h:`<b>${missingTrue} meeting${missingTrue>1?'s':''}</b> awaiting an actual outcome.`});
+  const resched=recs.filter(r=>r.a==='Rescheduled').length;
+  if(resched>0) a.push({t:'warn',h:`<b>${resched} rescheduled</b> — follow-up needed to keep momentum.`});
+  // dup detection (same client+date)
+  const seen={},dups=new Set();
+  recs.forEach(r=>{const k=(r.c+'|'+r.d).toLowerCase(); if(r.c&&r.d){if(seen[k])dups.add(k);seen[k]=1;}});
+  if(dups.size>0) a.push({t:'warn',h:`<b>${dups.size} possible duplicate${dups.size>1?'s':''}</b> (same client &amp; date).`});
+  // missing contact
+  const noContact=recs.filter(r=>!r.p||['na','n/a',''].includes(r.p.toLowerCase())).length;
+  if(noContact>0) a.push({t:'warn',h:`<b>${noContact} meeting${noContact>1?'s':''}</b> missing a named contact.`});
+  // inactivity vs prior weeks
+  const ws=weeklySeries(all); const last=ws[ws.length-1];
+  if(last){ const avg=ws.slice(-5,-1).reduce((s,w)=>s+w.meetings,0)/Math.max(ws.slice(-5,-1).length,1);
+    if(last.meetings<avg*0.5) a.push({t:'bad',h:`Latest week activity (<b>${last.meetings}</b>) is well below the recent average (${avg.toFixed(0)}).`}); }
+  const sc=scored(recs), rate=pct(sc.filter(r=>r.a===r.e).length,sc.length);
+  if(rate>=80) a.push({t:'ok',h:`Forecast accuracy strong at <b>${rate}%</b> — outcomes are landing as planned.`});
+  if(!a.length) a.push({t:'ok',h:'No outstanding data-quality flags in this period.'});
+  $('#alerts').innerHTML=a.map(x=>`<div class="alert ${x.t}">
+    <span class="ic">${x.t==='ok'?'✓':x.t==='bad'?'!':'!'}</span><span class="t">${x.h}</span></div>`).join('');
+}
+
+/* ---------- meeting log (filters apply here only) ---------- */
+function renderFilters(){
+  const recs=allRecords();
+  const types=[...new Set(recs.map(r=>r.t).filter(Boolean))];
+  const cohorts=[...new Set(recs.map(r=>r.co).filter(Boolean))];
+  $('#fType').innerHTML=`<option value="">All types</option>`+types.map(t=>`<option ${state.fType===t?'selected':''}>${t}</option>`).join('');
+  $('#fCohort').innerHTML=`<option value="">All cohorts</option>`+cohorts.map(c=>`<option ${state.fCohort===c?'selected':''}>${c}</option>`).join('');
+  const dates=recs.map(r=>r.d).filter(Boolean).sort();
+  if(dates.length){ const lo=dates[0], hi=dates[dates.length-1];
+    ['#dFrom','#dTo'].forEach(s=>{const el=$(s); el.min=lo; el.max=hi;});
+    $('#dFrom').value=state.dFrom; $('#dTo').value=state.dTo;
+  }
+}
+function logRows(){
+  const cut=periodCut();
+  return allRecords().filter(r=>{
+    if(cut){const w=parseD(r.w); if(!(w&&w>=cut))return false;}
+    if(state.dFrom && (!r.d || r.d < state.dFrom)) return false;
+    if(state.dTo && (!r.d || r.d > state.dTo)) return false;
+    if(state.fType&&r.t!==state.fType) return false;
+    if(state.fCohort&&r.co!==state.fCohort) return false;
+    if(state.fMatch){
+      const has=r.a&&r.a!=='Rescheduled';
+      if(state.fMatch==='none'&&(r.a&&r.a!=='')) return false;
+      if(state.fMatch==='y'&&!(has&&r.a===r.e)) return false;
+      if(state.fMatch==='n'&&!(has&&r.a!==r.e)) return false;
+    }
+    if(state.search){const q=state.search.toLowerCase();
+      if(!((r.c||'')+' '+(r.p||'')+' '+(r.n||'')+' '+(r.o||'')).toLowerCase().includes(q)) return false;}
+    return true;
+  }).sort((a,b)=>(b.d||'').localeCompare(a.d||''));
+}
+function renderLog(){
+  const rows=logRows();
+  const fmt=s=>{const d=parseD(s);return d?d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}):'—';};
+  $('#logBody').innerHTML=rows.slice(0,300).map(r=>{
+    let mc='match-r',mt='—';
+    if(r.a&&r.a!=='Rescheduled'){ if(r.a===r.e){mc='match-y';mt='On forecast';}else{mc='match-n';mt='Off forecast';} }
+    else if(r.a==='Rescheduled'){mt='Rescheduled';}
+    const tc=TYPE_COLORS[r.t]||TYPE_COLORS.Other;
+    const owner = (state.person===TEAM && r.who) ?
+      `<span class="owner-tag" style="background:${OWNER_COLORS[r.who]||'var(--slate)'}1f;color:${OWNER_COLORS[r.who]||'var(--slate)'}">${r.who.split(' ')[0]}</span>` : '';
+    return `<tr>
+      <td style="white-space:nowrap;color:var(--muted)">${fmt(r.d)}</td>
+      <td style="font-weight:500">${r.c||'—'} ${owner}${r.p&&!['na','n/a'].includes(r.p.toLowerCase())?`<br><span style="color:var(--muted);font-weight:400">${r.p}</span>`:''}</td>
+      <td>${r.co||'—'}</td>
+      <td><span class="tag" style="background:${tc}1f;color:${tc}">${r.t||'—'}</span></td>
+      <td>${r.o||'—'}</td>
+      <td style="color:var(--muted)">${r.e||'—'}</td>
+      <td class="${mc}">${r.a||'—'}<br><span style="font-size:10px">${mt}</span></td>
+      <td style="color:var(--muted);max-width:160px">${r.n||''}</td></tr>`;
+  }).join('') || `<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--muted)">No meetings match these filters.</td></tr>`;
+  $('#logFoot').textContent=`Showing ${Math.min(rows.length,300)} of ${rows.length} meetings`+(rows.length>300?' (first 300)':'')+'.';
+  $('#logNote').textContent=`${rows.length} records`;
+}
+
+function renderFootnote(){
+  const src = state.person===TEAM
+    ? 'both planner workbooks (David Ives + Olle Kjellberg)'
+    : `<b>Weekly Planner Template — ${state.person}.xlsx</b>`;
+  $('#footnote').innerHTML=`Live preview · data read directly from ${src}
+   (Weekly Diary + Dashboard sheets). Weeks run Monday–Sunday. “Forecast accuracy” compares each meeting’s Expected Outcome
+   against the Actual Outcome logged the following week; rescheduled meetings are excluded from accuracy.
+   Refreshing the dashboard each week means replacing the workbook — no manual re-entry. Branding follows
+   The Global Living Company visual identity. This is the design preview; the production build adds the historical store,
+   Monday.com opportunity sync and multi-user roles.`;
+}
+
+function resetFilters(){ state.search='';state.fType='';state.fCohort='';state.fMatch='';state.dFrom='';state.dTo=''; }
+
+function renderAll(){
+  renderPersonStrip(); renderMeta(); renderKPIs(); renderTrend(); renderCohortTrend(); renderRecurringClients(); renderInsights(); renderCoachInsights(); renderLeaderboard(); renderForecast();
+  renderBreakdowns(); renderConversion(); renderPlanLastWeek(); renderAlerts();
+  renderFilters(); renderLog(); renderFootnote();
+}
+
+/* ---------- events ---------- */
+document.addEventListener('input',e=>{
+  if(e.target.id==='search'){state.search=e.target.value;renderLog();}
+});
+document.addEventListener('change',e=>{
+  if(e.target.id==='lbRange'){state.lbRange=e.target.value;renderLeaderboard();}
+  if(e.target.id==='fType'){state.fType=e.target.value;renderLog();}
+  if(e.target.id==='fCohort'){state.fCohort=e.target.value;renderLog();}
+  if(e.target.id==='fMatch'){state.fMatch=e.target.value;renderLog();}
+  if(e.target.id==='dFrom'){state.dFrom=e.target.value;renderLog();}
+  if(e.target.id==='dTo'){state.dTo=e.target.value;renderLog();}
+});
+document.addEventListener('click',e=>{
+  if(e.target.id==='clearDates'){state.dFrom='';state.dTo='';$('#dFrom').value='';$('#dTo').value='';renderLog();}
+});
+$('#themeBtn').onclick=()=>{
+  const h=document.documentElement;
+  h.dataset.theme = h.dataset.theme==='dark'?'light':'dark';
+  renderTrend(); renderCohortTrend(); renderForecast(); renderBreakdowns(); // re-render charts for color vars
+};
+
+renderAll();
+</script>
+</body>
+</html>

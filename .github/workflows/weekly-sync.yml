@@ -1,0 +1,40 @@
+name: Weekly Monday.com sync
+
+on:
+  schedule:
+    # 03:00 UTC Mondays = 07:00 Asia/Dubai (UTC+4, no daylight saving).
+    # GitHub's scheduler can run a few minutes late on busy days — fine for a weekly job.
+    - cron: '0 3 * * 1'
+  workflow_dispatch: {}   # adds a manual "Run workflow" button in the Actions tab
+
+permissions:
+  contents: write   # required so the workflow can push the commit it creates
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run extraction
+        run: node scripts/extract.js
+        env:
+          MONDAY_API_KEY: ${{ secrets.MONDAY_API_KEY }}
+
+      - name: Commit changes if any
+        run: |
+          git config user.name "glc-sync-bot"
+          git config user.email "actions@github.com"
+          git add data.js snapshot.json unmapped-values.json rejected-records.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes detected — nothing to commit."
+          else
+            git commit -m "Weekly sync: $(date -u +%Y-%m-%d)"
+            git push
+          fi
