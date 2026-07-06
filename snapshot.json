@@ -3474,32 +3474,6 @@
         "n": "Part of an event 16-18th July"
       },
       {
-        "id": "2770445418",
-        "w": "2026-07-06",
-        "d": "2026-07-06",
-        "c": "ExampleClient",
-        "p": "Mr.Example",
-        "co": "Holiday Homes",
-        "t": "Intro / first meeting",
-        "o": "Introduce Global Living",
-        "e": "Send Brochure",
-        "a": null,
-        "n": ""
-      },
-      {
-        "id": "2770549416",
-        "w": "2026-07-06",
-        "d": "2026-07-06",
-        "c": "AnotherExampleClient",
-        "p": "Mrs.Example",
-        "co": "Developer",
-        "t": "Site / showroom visit",
-        "o": "Proposals / Presentation",
-        "e": "Qualify opportunity",
-        "a": null,
-        "n": ""
-      },
-      {
         "id": "2770538330",
         "w": "2026-07-06",
         "d": "2026-07-06",
@@ -3515,11 +3489,11 @@
     ],
     "dashboard": {
       "thisWeek": "2026-07-06",
-      "planTotal": 3,
+      "planTotal": 1,
       "planByType": [
         {
           "k": "Intro / first meeting",
-          "v": 1
+          "v": 0
         },
         {
           "k": "Existing client meeting",
@@ -3535,7 +3509,7 @@
         },
         {
           "k": "Site / showroom visit",
-          "v": 1
+          "v": 0
         },
         {
           "k": "Internal deal meeting",
@@ -3553,7 +3527,7 @@
         },
         {
           "k": "Qualify opportunity",
-          "v": 1
+          "v": 0
         },
         {
           "k": "Deal progression",
@@ -3573,7 +3547,7 @@
         },
         {
           "k": "Send Brochure",
-          "v": 1
+          "v": 0
         },
         {
           "k": "Send Referral Agreement",
