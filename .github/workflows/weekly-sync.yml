@@ -4,7 +4,7 @@ on:
   schedule:
     # 03:00 UTC Mondays = 07:00 Asia/Dubai (UTC+4, no daylight saving).
     # GitHub's scheduler can run a few minutes late on busy days — fine for a weekly job.
-    - cron: '40 8 * * 1'
+    - cron: '52 8 * * *'
   workflow_dispatch: {}   # adds a manual "Run workflow" button in the Actions tab
 
 permissions:
