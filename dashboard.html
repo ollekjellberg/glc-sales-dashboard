@@ -221,21 +221,28 @@ html[data-theme="dark"] .daterange input{color-scheme:dark}
     <div class="card panel">
       <div class="p-eyebrow">Recurring relationships</div>
       <div class="p-head"><div class="p-title">Top brokers — repeat meetings</div>
-        <div class="p-note">Success = New lead created or Deal progression</div></div>
+        <div class="p-note">Success = New lead created, Proposals issued, or Deal progression</div></div>
       <div class="plan-grid" id="recurringBrokers"></div>
     </div>
     <div class="card panel">
       <div class="p-eyebrow">Recurring relationships</div>
       <div class="p-head"><div class="p-title">Top developers — repeat meetings</div>
-        <div class="p-note">Success = New lead created or Deal progression</div></div>
+        <div class="p-note">Success = New lead created, Proposals issued, or Deal progression</div></div>
       <div class="plan-grid" id="recurringDevelopers"></div>
     </div>
+  </div>
+
+  <div class="card panel" id="commentaryCard" style="margin-bottom:18px;display:none">
+    <div class="p-eyebrow">Weekly commentary</div>
+    <div class="p-head"><div class="p-title">What changed this week</div>
+      <div class="p-note" id="commentaryDate"></div></div>
+    <div id="commentaryItems"></div>
   </div>
 
   <div class="card panel" id="insightCard" style="margin-bottom:18px;display:none">
     <div class="p-eyebrow">Insights</div>
     <div class="p-head"><div class="p-title">Successful meetings by cohort</div>
-      <div class="p-note">Success = New lead created or Deal progression</div></div>
+      <div class="p-note">Success = New lead created, Proposals issued, or Deal progression</div></div>
     <div class="p-note" id="insightHeadline" style="margin:4px 0 12px;font-size:13px;color:var(--ink)"></div>
     <div class="hbars" id="insightBars"></div>
   </div>
@@ -244,7 +251,7 @@ html[data-theme="dark"] .daterange input{color-scheme:dark}
     <div class="p-eyebrow">Team leaderboard</div>
     <div class="p-head"><div class="p-title">Successful-meeting likelihood by salesperson &amp; cohort</div>
       <div class="fdrop"><select id="lbRange"></select></div></div>
-    <div class="p-note" id="lbRangeNote" style="margin-bottom:8px">Success = New lead created or Deal progression</div>
+    <div class="p-note" id="lbRangeNote" style="margin-bottom:8px">Success = New lead created, Proposals issued, or Deal progression</div>
     <div class="plan-grid" id="leaderboardGrid"></div>
   </div>
 
@@ -346,6 +353,8 @@ html[data-theme="dark"] .daterange input{color-scheme:dark}
 </div>
 
 <script src="data.js"></script>
+<script>window.GLC_COMMENTARY = window.GLC_COMMENTARY || null;</script>
+<script src="commentary.js" onerror="/* commentary.js not generated yet — dashboard still works fine without it */"></script>
 <script>/* ============ The Global Living Company — Sales Performance ============ */
 const DATA = window.GLC_DATA;
 /* Tracking window: 19 Jan – 02 Jul 2026 (weeks w/c 2026-01-19 → 2026-06-29) */
@@ -542,26 +551,49 @@ function renderMeta(){
     <span class="window">${recs.length} meetings logged · viewing: ${pl}</span>`;
 }
 
+function weeklyKPIBreakdown(records){
+  const m={};
+  records.forEach(r=>{
+    if(!r.w) return;
+    const b=m[r.w]=m[r.w]||{meetings:0,scoredN:0,matched:0,successful:0};
+    b.meetings++;
+    if(r.a && r.a!=='Rescheduled'){
+      b.scoredN++;
+      if(r.a===r.e) b.matched++;
+      if(SUCCESS_OUTCOMES.includes(r.a)) b.successful++;
+    }
+  });
+  return Object.keys(m).sort().map(w=>({week:w,...m[w]}));
+}
+function deltaPill(delta, unit){
+  const dir = delta>0?'up':delta<0?'down':'flat';
+  const arrow = delta>0?'▲':delta<0?'▼':'–';
+  return `<span class="pill ${dir}">${arrow} ${Math.abs(delta)}${unit||''} vs prior</span>`;
+}
 function renderKPIs(){
   const recs=periodRecords(), sc=scored(recs), all=allRecords();
   const ws=weeklySeries(recs), wsAll=weeklySeries(all);
-  const leads=recs.filter(r=>r.a==='New lead created').length;
-  const props=recs.filter(r=>r.a==='Proposals / Quotes Issuance').length;
-  const deals=recs.filter(r=>r.a==='Deal progression').length;
+  const successful=recs.filter(r=>SUCCESS_OUTCOMES.includes(r.a)).length;
   const matched=sc.filter(r=>r.a===r.e).length;
   const matchRate=pct(matched,sc.length);
-  // this week vs prior week
+  // this week vs prior week (meetings volume — pre-existing tile, always full history)
   const last=wsAll[wsAll.length-1], prev=wsAll[wsAll.length-2];
   const wow = (last&&prev)? last.meetings-prev.meetings : 0;
+  // weekly-tracked metrics: outcome match % and successful meetings, this week vs prior week
+  const kb=weeklyKPIBreakdown(all);
+  const kLast=kb[kb.length-1], kPrev=kb[kb.length-2];
+  const matchRateFor=b=>b?pct(b.matched,b.scoredN):0;
+  const dMatch = (kLast&&kPrev)? matchRateFor(kLast)-matchRateFor(kPrev) : 0;
+  const dSuccessful = (kLast&&kPrev)? kLast.successful-kPrev.successful : 0;
   const plan = getPersonData(state.person).dashboard.planTotal;
   const cards=[
     {lab:'Meetings',val:recs.length,sub:`across ${ws.filter(w=>w.meetings>0).length} active weeks`,spark:ws},
     {lab:'Latest week',val:last?last.meetings:0,
       sub:`<span class="pill ${wow>0?'up':wow<0?'down':'flat'}">${wow>0?'▲':wow<0?'▼':'–'} ${Math.abs(wow)} vs prior</span>`},
     {lab:'Outcome match',val:matchRate,u:'%',sub:`${matched} of ${sc.length} on forecast`},
-    {lab:'New leads',val:leads,sub:`${pct(leads,recs.length)}% of meetings`},
-    {lab:'Proposals issued',val:props,sub:`${pct(props,recs.length)}% of meetings`},
-    {lab:'Deal progressions',val:deals,sub:`${pct(deals,recs.length)}% of meetings`},
+    {lab:'Outcome match this week',val:kLast?matchRateFor(kLast):0,u:'%',sub:deltaPill(dMatch,'pp')},
+    {lab:'Successful meetings',val:successful,sub:`${pct(successful,recs.length)}% of meetings`},
+    {lab:'Successful meetings this week',val:kLast?kLast.successful:0,sub:deltaPill(dSuccessful)},
   ];
   $('#kpis').innerHTML=cards.map(c=>`<div class="card kpi">
     <div class="k-lab">${c.lab}</div>
@@ -670,7 +702,7 @@ function renderRecurringClients(){
 }
 
 /* ---------- successful-meeting insights ---------- */
-const SUCCESS_OUTCOMES = ['New lead created','Deal progression'];
+const SUCCESS_OUTCOMES = ['New lead created','Proposals / Quotes Issuance','Deal progression'];
 function cohortSuccessStats(recs){
   const m={};
   recs.forEach(r=>{
@@ -681,6 +713,23 @@ function cohortSuccessStats(recs){
   });
   return Object.values(m).map(o=>({...o,rate:pct(o.s,o.n)})).sort((a,b)=>b.rate-a.rate||b.n-a.n);
 }
+/* ---------- weekly commentary (agent-generated, read-only display) ---------- */
+function renderCommentary(){
+  const card=$('#commentaryCard');
+  const c=window.GLC_COMMENTARY;
+  if(!c || !Array.isArray(c.items) || !c.items.length){ card.style.display='none'; return; }
+  // items may optionally be scoped with a `scope` field ('David Ives'|'Olle Kjellberg'|'Team'); untagged items show everywhere
+  const items=c.items.filter(it=>!it.scope || it.scope===state.person || (state.person===TEAM && it.scope==='Team'));
+  if(!items.length){ card.style.display='none'; return; }
+  card.style.display='';
+  $('#commentaryDate').textContent = c.generated ? `Generated ${new Date(c.generated).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}` : '';
+  $('#commentaryItems').innerHTML = items.map(it=>`
+    <div style="padding:12px 0;border-top:1px solid var(--line)">
+      <div style="font-weight:600;margin-bottom:4px">${it.title||''}</div>
+      <div style="color:var(--muted);font-size:13.5px;line-height:1.5">${it.body||''}</div>
+    </div>`).join('');
+}
+
 function renderInsights(){
   const card=$('#insightCard');
   if(state.person===TEAM){ card.style.display='none'; return; }
@@ -731,7 +780,7 @@ function renderLeaderboard(){
   REAL_PEOPLE.forEach(p=>cohortSuccessStats(lbFilteredRecords(p)).forEach(s=>rows.push({p,...s})));
   rows.sort((a,b)=>b.rate-a.rate||b.s-a.s);
   const totalMeetings=rows.reduce((t,r)=>t+r.n,0);
-  $('#lbRangeNote').textContent=`Success = New lead created or Deal progression · ${rg.lab} · ${totalMeetings} meetings in range`;
+  $('#lbRangeNote').textContent=`Success = New lead created, Proposals issued, or Deal progression · ${rg.lab} · ${totalMeetings} meetings in range`;
   if(!rows.length){ $('#leaderboardGrid').innerHTML='<div class="p-note" style="margin-top:10px">No meetings logged in this range.</div>'; return; }
   const lc=Object.fromEntries(COHORT_LINES.map(l=>[l.k,l.c]));
   let g=`<div class="plan-row h" style="grid-template-columns:26px 1fr 1fr 2fr 64px 60px"><span>#</span><span>Salesperson</span><span>Cohort</span><span></span><span class="num">Succ.</span><span class="num">Chance</span></div>`;
@@ -1009,7 +1058,7 @@ function renderFootnote(){
 function resetFilters(){ state.search='';state.fType='';state.fCohort='';state.fMatch='';state.dFrom='';state.dTo=''; }
 
 function renderAll(){
-  renderPersonStrip(); renderMeta(); renderKPIs(); renderTrend(); renderCohortTrend(); renderRecurringClients(); renderInsights(); renderCoachInsights(); renderLeaderboard(); renderForecast();
+  renderPersonStrip(); renderMeta(); renderKPIs(); renderTrend(); renderCohortTrend(); renderRecurringClients(); renderCommentary(); renderInsights(); renderCoachInsights(); renderLeaderboard(); renderForecast();
   renderBreakdowns(); renderConversion(); renderPlanLastWeek(); renderAlerts();
   renderFilters(); renderLog(); renderFootnote();
 }
