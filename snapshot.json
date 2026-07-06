@@ -3472,24 +3472,11 @@
         "e": "Send Brochure",
         "a": null,
         "n": "Part of an event 16-18th July"
-      },
-      {
-        "id": "2770538330",
-        "w": "2026-07-06",
-        "d": "2026-07-06",
-        "c": "FinalExampleClient",
-        "p": "Example.Jr",
-        "co": "Other",
-        "t": "Existing client meeting",
-        "o": "Deal progression",
-        "e": "Deal progression",
-        "a": null,
-        "n": ""
       }
     ],
     "dashboard": {
-      "thisWeek": "2026-07-06",
-      "planTotal": 1,
+      "thisWeek": "2026-06-29",
+      "planTotal": 14,
       "planByType": [
         {
           "k": "Intro / first meeting",
@@ -3497,11 +3484,11 @@
         },
         {
           "k": "Existing client meeting",
-          "v": 1
+          "v": 9
         },
         {
           "k": "New client meeting",
-          "v": 0
+          "v": 5
         },
         {
           "k": "Event",
@@ -3531,7 +3518,7 @@
         },
         {
           "k": "Deal progression",
-          "v": 1
+          "v": 9
         },
         {
           "k": "Proposals / Presentation",
@@ -3539,7 +3526,7 @@
         },
         {
           "k": "Proposals / Quotes Issuance",
-          "v": 0
+          "v": 2
         },
         {
           "k": "New lead created",
@@ -3547,16 +3534,16 @@
         },
         {
           "k": "Send Brochure",
-          "v": 0
+          "v": 3
         },
         {
           "k": "Send Referral Agreement",
           "v": 0
         }
       ],
-      "lastWeek": "2026-06-29",
-      "lastWeekTotalActual": 2,
-      "lastWeekTotalTarget": 14,
+      "lastWeek": "2026-06-22",
+      "lastWeekTotalActual": 9,
+      "lastWeekTotalTarget": 9,
       "lastWeekOutcomes": [
         {
           "k": "Introduce Global Living",
@@ -3573,14 +3560,14 @@
         {
           "k": "Qualify opportunity",
           "t": 0,
-          "a": 0,
-          "v": 0
+          "a": 1,
+          "v": 1
         },
         {
           "k": "Deal progression",
-          "t": 9,
-          "a": 1,
-          "v": -8
+          "t": 6,
+          "a": 6,
+          "v": 0
         },
         {
           "k": "Proposals / Presentation",
@@ -3591,20 +3578,20 @@
         {
           "k": "Proposals / Quotes Issuance",
           "t": 2,
-          "a": 1,
-          "v": -1
-        },
-        {
-          "k": "New lead created",
-          "t": 0,
-          "a": 0,
+          "a": 2,
           "v": 0
         },
         {
-          "k": "Send Brochure",
-          "t": 3,
+          "k": "New lead created",
+          "t": 1,
           "a": 0,
-          "v": -3
+          "v": -1
+        },
+        {
+          "k": "Send Brochure",
+          "t": 0,
+          "a": 0,
+          "v": 0
         },
         {
           "k": "Send Referral Agreement",
