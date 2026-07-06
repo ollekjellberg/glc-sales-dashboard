@@ -31,7 +31,9 @@ jobs:
         run: |
           git config user.name "glc-sync-bot"
           git config user.email "actions@github.com"
-          git add data.js snapshot.json unmapped-values.json rejected-records.json 2>/dev/null || true
+          git add -- data.js snapshot.json
+          [ -f unmapped-values.json ] && git add -- unmapped-values.json
+          [ -f rejected-records.json ] && git add -- rejected-records.json
           if git diff --cached --quiet; then
             echo "No changes detected — nothing to commit."
           else
