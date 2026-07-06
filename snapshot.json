@@ -3498,11 +3498,24 @@
         "e": "Qualify opportunity",
         "a": null,
         "n": ""
+      },
+      {
+        "id": "2770538330",
+        "w": "2026-07-06",
+        "d": "2026-07-06",
+        "c": "FinalExampleClient",
+        "p": "Example.Jr",
+        "co": "Other",
+        "t": "Existing client meeting",
+        "o": "Deal progression",
+        "e": "Deal progression",
+        "a": null,
+        "n": ""
       }
     ],
     "dashboard": {
       "thisWeek": "2026-07-06",
-      "planTotal": 2,
+      "planTotal": 3,
       "planByType": [
         {
           "k": "Intro / first meeting",
@@ -3510,7 +3523,7 @@
         },
         {
           "k": "Existing client meeting",
-          "v": 0
+          "v": 1
         },
         {
           "k": "New client meeting",
@@ -3544,7 +3557,7 @@
         },
         {
           "k": "Deal progression",
-          "v": 0
+          "v": 1
         },
         {
           "k": "Proposals / Presentation",
