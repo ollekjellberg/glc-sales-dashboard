@@ -187,9 +187,6 @@ function mondayOfWeek(isoDate) {
 async function buildRecordsForPerson(name, cfg, unmapped, rejected) {
   const COLUMN_MAP = COLUMN_MAP_BY_PERSON[name];
   const items = await fetchBoard(cfg.boardId);
-  // TEMPORARY DEBUG — remove once the sync is confirmed working end-to-end.
-  console.log(`[DEBUG] ${name}: Monday.com just returned ${items.length} raw item(s).`);
-  console.log(`[DEBUG] ${name}: item names — ${items.map(it => colText(it, COLUMN_MAP.client) || '(no name)').join(' | ')}`);
   const records = [];
 
   for (const item of items) {
