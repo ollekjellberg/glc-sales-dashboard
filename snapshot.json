@@ -3474,34 +3474,47 @@
         "n": "Part of an event 16-18th July"
       },
       {
-        "id": "2767257777",
-        "w": "2026-06-29",
-        "d": "2026-07-03",
-        "c": "Client12345",
-        "p": "12345",
-        "co": "Broker",
-        "t": "New client meeting",
+        "id": "2770445418",
+        "w": "2026-07-06",
+        "d": "2026-07-06",
+        "c": "ExampleClient",
+        "p": "Mr.Example",
+        "co": "Holiday Homes",
+        "t": "Intro / first meeting",
         "o": "Introduce Global Living",
         "e": "Send Brochure",
+        "a": null,
+        "n": ""
+      },
+      {
+        "id": "2770549416",
+        "w": "2026-07-06",
+        "d": "2026-07-06",
+        "c": "AnotherExampleClient",
+        "p": "Mrs.Example",
+        "co": "Developer",
+        "t": "Site / showroom visit",
+        "o": "Proposals / Presentation",
+        "e": "Qualify opportunity",
         "a": null,
         "n": ""
       }
     ],
     "dashboard": {
-      "thisWeek": "2026-06-29",
-      "planTotal": 15,
+      "thisWeek": "2026-07-06",
+      "planTotal": 2,
       "planByType": [
         {
           "k": "Intro / first meeting",
-          "v": 0
+          "v": 1
         },
         {
           "k": "Existing client meeting",
-          "v": 9
+          "v": 0
         },
         {
           "k": "New client meeting",
-          "v": 6
+          "v": 0
         },
         {
           "k": "Event",
@@ -3509,7 +3522,7 @@
         },
         {
           "k": "Site / showroom visit",
-          "v": 0
+          "v": 1
         },
         {
           "k": "Internal deal meeting",
@@ -3527,11 +3540,11 @@
         },
         {
           "k": "Qualify opportunity",
-          "v": 0
+          "v": 1
         },
         {
           "k": "Deal progression",
-          "v": 9
+          "v": 0
         },
         {
           "k": "Proposals / Presentation",
@@ -3539,7 +3552,7 @@
         },
         {
           "k": "Proposals / Quotes Issuance",
-          "v": 2
+          "v": 0
         },
         {
           "k": "New lead created",
@@ -3547,16 +3560,16 @@
         },
         {
           "k": "Send Brochure",
-          "v": 4
+          "v": 1
         },
         {
           "k": "Send Referral Agreement",
           "v": 0
         }
       ],
-      "lastWeek": "2026-06-22",
-      "lastWeekTotalActual": 9,
-      "lastWeekTotalTarget": 9,
+      "lastWeek": "2026-06-29",
+      "lastWeekTotalActual": 2,
+      "lastWeekTotalTarget": 14,
       "lastWeekOutcomes": [
         {
           "k": "Introduce Global Living",
@@ -3573,14 +3586,14 @@
         {
           "k": "Qualify opportunity",
           "t": 0,
-          "a": 1,
-          "v": 1
+          "a": 0,
+          "v": 0
         },
         {
           "k": "Deal progression",
-          "t": 6,
-          "a": 6,
-          "v": 0
+          "t": 9,
+          "a": 1,
+          "v": -8
         },
         {
           "k": "Proposals / Presentation",
@@ -3591,20 +3604,20 @@
         {
           "k": "Proposals / Quotes Issuance",
           "t": 2,
-          "a": 2,
-          "v": 0
-        },
-        {
-          "k": "New lead created",
-          "t": 1,
-          "a": 0,
+          "a": 1,
           "v": -1
         },
         {
-          "k": "Send Brochure",
+          "k": "New lead created",
           "t": 0,
           "a": 0,
           "v": 0
+        },
+        {
+          "k": "Send Brochure",
+          "t": 3,
+          "a": 0,
+          "v": -3
         },
         {
           "k": "Send Referral Agreement",
