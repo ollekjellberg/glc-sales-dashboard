@@ -24,7 +24,7 @@ if (!TOKEN) {
 
 const BOARDS = {
   'David Ives': {
-    boardId: '5029660139',
+    boardId: '5029723892',
     role: 'Managing Director',
   },
   'Olle Kjellberg': {
@@ -39,15 +39,15 @@ const BOARDS = {
 // Column IDs differ between the two boards, so each person has their own map.
 const COLUMN_MAP_BY_PERSON = {
   'David Ives': {
-    meetDate:  'date_mm4xmyng',
-    client:    'text_mm4xcpqw',
-    contact:   'text_mm4xmmx2',
-    cohort:    'color_mm4xsrax',
-    type:      'color_mm4xdtfr',
-    objective: 'color_mm4xv70s',
-    expected:  'color_mm4xhqd5',
-    actual:    'color_mm4xnpmc',
-    notes:     'text_mm4xqypt',
+    meetDate:  'date_mm50z5bq',
+    client:    'text_mm508bxq',
+    contact:   'text_mm5069qm',
+    cohort:    'color_mm50zamn',
+    type:      'color_mm50q8c7',
+    objective: 'color_mm50kdz8',
+    expected:  'color_mm50mm63',
+    actual:    'color_mm509hrz',
+    notes:     'text_mm50txsz',
   },
   'Olle Kjellberg': {
     meetDate:  'date_mm50hhq8',
