@@ -1,3 +1,4 @@
+[README.md](https://github.com/user-attachments/files/29701385/README.md)
 # GLC Sales Dashboard — weekly Monday.com sync
 
 This repo contains:
@@ -9,6 +10,14 @@ This repo contains:
   No AI involved — plain, deterministic code.
 - `.github/workflows/weekly-sync.yml` — tells GitHub to run `extract.js` every
   Monday at 07:00 Gulf time automatically.
+- `agents/generate-insights.js` — runs only after a successful data sync.
+  Haiku writes a plain-English changelog of what changed; Opus reads the new
+  data and changelog and writes 3-5 narrative insights. **This step only ever
+  writes `commentary.js` and `CHANGELOG.md` — it never touches `data.js` or
+  `dashboard.html`.** If it fails for any reason, the data sync you already
+  have is unaffected; the dashboard just won't show a commentary card that week.
+- `commentary.js` — the agent-generated insights, read by the dashboard's
+  "Weekly commentary" card. Absent until the first successful agent run.
 
 There are only **two things you need to fill in** before this works. Everything
 else is done.
