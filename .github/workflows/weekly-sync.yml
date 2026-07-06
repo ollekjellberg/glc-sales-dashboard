@@ -2,10 +2,19 @@ name: Weekly Monday.com sync
 
 on:
   schedule:
-    # 03:00 UTC Mondays = 07:00 Asia/Dubai (UTC+4, no daylight saving).
-    # GitHub's scheduler can run a few minutes late on busy days — fine for a weekly job.
-    - cron: '0 3 * * *'
+    # Currently DAILY at 03:17 UTC (07:17 Asia/Dubai) — you set this to daily
+    # yourself to test the automation tomorrow morning. Once you've confirmed
+    # it's firing reliably, change this back to weekly:
+    #   - cron: '17 3 * * 1'   (Mondays only)
+    # Deliberately NOT on the hour (03:00) — GitHub's own docs flag the start
+    # of every hour as the highest-load window for scheduled workflows, where
+    # runs are most likely to be delayed or, under heavy load, dropped.
+    - cron: '17 3 * * *'
   workflow_dispatch: {}   # adds a manual "Run workflow" button in the Actions tab
+
+concurrency:
+  group: weekly-sync
+  cancel-in-progress: false   # let an in-progress run finish; queue the next one rather than race it
 
 permissions:
   contents: write   # required so the workflow can push the commit it creates
@@ -22,12 +31,16 @@ jobs:
         with:
           node-version: 20
 
+      - name: Preserve prior snapshot for diffing
+        run: cp snapshot.json /tmp/prev-snapshot.json 2>/dev/null || echo '{}' > /tmp/prev-snapshot.json
+
       - name: Run extraction
         run: node scripts/extract.js
         env:
           MONDAY_API_KEY: ${{ secrets.MONDAY_API_KEY }}
 
       - name: Commit changes if any
+        id: commit
         run: |
           git config user.name "glc-sync-bot"
           git config user.email "actions@github.com"
@@ -36,7 +49,35 @@ jobs:
           [ -f rejected-records.json ] && git add -- rejected-records.json
           if git diff --cached --quiet; then
             echo "No changes detected — nothing to commit."
+            echo "committed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "Weekly sync: $(date -u +%Y-%m-%d)"
-            git push
+            if ! git push; then
+              echo "Push rejected — remote moved since checkout. Rebasing and retrying once..."
+              git pull --rebase origin main
+              git push
+            fi
+            echo "committed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate weekly insights (Haiku + Opus)
+        if: steps.commit.outputs.committed == 'true'
+        run: node agents/generate-insights.js
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Commit commentary if any
+        if: steps.commit.outputs.committed == 'true'
+        run: |
+          [ -f commentary.js ] && git add -- commentary.js
+          [ -f CHANGELOG.md ] && git add -- CHANGELOG.md
+          if git diff --cached --quiet; then
+            echo "No commentary changes to commit."
+          else
+            git commit -m "Weekly insights: $(date -u +%Y-%m-%d)"
+            if ! git push; then
+              echo "Push rejected — remote moved since checkout. Rebasing and retrying once..."
+              git pull --rebase origin main
+              git push
+            fi
           fi
