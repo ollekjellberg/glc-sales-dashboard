@@ -28,7 +28,7 @@ const BOARDS = {
     role: 'Managing Director',
   },
   'Olle Kjellberg': {
-    boardId: '5029660845',
+    boardId: '5029723447',
     role: 'Business Development Manager',
   },
 };
@@ -50,15 +50,15 @@ const COLUMN_MAP_BY_PERSON = {
     notes:     'text_mm4xqypt',
   },
   'Olle Kjellberg': {
-    meetDate:  'date_mm4xy6bv',
-    client:    'text_mm4xcsvf',
-    contact:   'text_mm4xtfac',
-    cohort:    'color_mm4x4n9y',
-    type:      'color_mm4xakby',
-    objective: 'color_mm4xkkhr',
-    expected:  'color_mm4xn79x',
-    actual:    'color_mm4xx3nm',
-    notes:     'text_mm4xhxfg',
+    meetDate:  'date_mm50hhq8',
+    client:    'text_mm50bb8b',
+    contact:   'text_mm50rf6p',
+    cohort:    'color_mm50wrbr',
+    type:      'color_mm50sj3e',
+    objective: 'color_mm508m25',
+    expected:  'color_mm50gb35',
+    actual:    'color_mm50jk37',
+    notes:     'text_mm50d031',
   },
 };
 
