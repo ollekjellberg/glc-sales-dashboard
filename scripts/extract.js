@@ -85,7 +85,7 @@ const OUTCOME_WHITELIST = [
    3. Monday.com fetch + transform
    ============================================================ */
 
-async function fetchBoard(boardId) {
+async function fetchBoardOnce(boardId) {
   const query = `
     query {
       boards(ids: ${boardId}) {
@@ -125,6 +125,36 @@ async function fetchBoard(boardId) {
   throw lastErr;
 }
 
+const FETCH_SETTLE_DELAY_MS = 10000; // gap between the two fetches below
+function sleep(ms) { return new Promise(res => setTimeout(res, ms)); }
+
+// Monday.com's items_page reads from an eventually-consistent index. Items
+// inserted at the very end of a board can be briefly under-indexed — not just
+// missing themselves, but occasionally causing a handful of *other* existing
+// items to also drop out of the result for a short window. Fetching twice,
+// ~10s apart, and merging by item id gives the index a chance to catch up
+// within the same run, so a transient gap self-heals instead of silently
+// producing an incomplete dataset.
+async function fetchBoard(boardId) {
+  const first = await fetchBoardOnce(boardId);
+  await sleep(FETCH_SETTLE_DELAY_MS);
+  const second = await fetchBoardOnce(boardId);
+
+  const byId = new Map();
+  first.forEach(item => byId.set(item.id, item));
+  second.forEach(item => byId.set(item.id, item)); // second pass wins on conflict (freshest data)
+
+  const merged = Array.from(byId.values());
+  if (merged.length !== first.length || merged.length !== second.length) {
+    console.warn(
+      `[fetchBoard] board ${boardId}: fetch 1 returned ${first.length} item(s), ` +
+      `fetch 2 returned ${second.length}, merged total ${merged.length}. ` +
+      `Monday.com's index likely hadn't fully settled — using the merged, more complete set.`
+    );
+  }
+  return merged;
+}
+
 function colText(item, colId) {
   const c = item.column_values.find(c => c.id === colId);
   const t = c && c.text ? c.text.trim() : '';
@@ -157,6 +187,9 @@ function mondayOfWeek(isoDate) {
 async function buildRecordsForPerson(name, cfg, unmapped, rejected) {
   const COLUMN_MAP = COLUMN_MAP_BY_PERSON[name];
   const items = await fetchBoard(cfg.boardId);
+  // TEMPORARY DEBUG — remove once the sync is confirmed working end-to-end.
+  console.log(`[DEBUG] ${name}: Monday.com just returned ${items.length} raw item(s).`);
+  console.log(`[DEBUG] ${name}: item names — ${items.map(it => colText(it, COLUMN_MAP.client) || '(no name)').join(' | ')}`);
   const records = [];
 
   for (const item of items) {
@@ -248,24 +281,38 @@ async function main() {
   }
 
   // Sanity check against last snapshot before writing anything.
-  let prevCount = null;
+  // Checked per-person (not just combined) so a drop on one board can't be
+  // masked by growth on the other — this is what would catch a Monday.com
+  // partial-index gap slipping through as a "small enough" combined change.
+  let prevSnapshot = null;
   if (fs.existsSync('snapshot.json')) {
     const prevRaw = fs.readFileSync('snapshot.json', 'utf8').trim();
-    if (prevRaw && prevRaw !== '{}') {
-      const prev = JSON.parse(prevRaw);
-      prevCount = Object.values(prev).reduce((s, p) => s + p.records.length, 0);
+    if (prevRaw && prevRaw !== '{}') prevSnapshot = JSON.parse(prevRaw);
+  }
+  if (prevSnapshot) {
+    for (const [name, cfg] of Object.entries(BOARDS)) {
+      const prevN = prevSnapshot[name]?.records?.length;
+      const newN = data[name].records.length;
+      if (prevN == null || prevN === 0) continue;
+      if (newN < prevN * 0.5 || newN > prevN * 1.5) {
+        console.error(
+          `Sanity check failed for ${name}: record count moved from ${prevN} to ${newN} ` +
+          `(more than 50% change). Aborting without writing data.js.`
+        );
+        process.exit(1);
+      }
+      if (newN < prevN * 0.9) {
+        console.error(
+          `Sanity check failed for ${name}: record count dropped from ${prevN} to ${newN} ` +
+          `(more than 10% fewer records than last week). This looks like a partial-index gap ` +
+          `from Monday.com rather than a genuine deletion spree. Aborting without writing data.js — ` +
+          `re-run the workflow; if the count is genuinely correct on a re-run, this was transient.`
+        );
+        process.exit(1);
+      }
     }
   }
   const newCount = Object.values(data).reduce((s, p) => s + p.records.length, 0);
-  if (prevCount !== null && prevCount > 0) {
-    if (newCount < prevCount * 0.5 || newCount > prevCount * 1.5) {
-      console.error(
-        `Sanity check failed: record count moved from ${prevCount} to ${newCount} ` +
-        `(more than 50% change). Aborting without writing data.js.`
-      );
-      process.exit(1);
-    }
-  }
 
   fs.writeFileSync('data.js', `window.GLC_DATA = ${JSON.stringify(data)};\n`);
   fs.writeFileSync('snapshot.json', JSON.stringify(data, null, 2));
