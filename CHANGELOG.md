@@ -28,3 +28,11 @@
 - David Ives categorized 10 deals this week: 6 marked as "Other" (Origin pro, Intent, Origin pro, Henley & Partners, Knightsbridge Management, InHaus, JAV) and 3 marked as "Broker" (Blue Print, McCone Properties, Cityzen)
 - No deals were added or removed for either rep; totals remain stable at 274 for David Ives and 310 for Olle Kjellberg
 - Olle Kjellberg had no changes this week
+
+## 2026-07-07
+
+- Olle Kjellberg scheduled intro meetings with five new prospects: Silk Valley, Deluxe Holdai Homes, Pristine Total, Ajmal Majkan, and Raincode
+- Olle also booked first meetings with Short Stay Vacation Homes
+- Two Acres Real Estate Exhibition opportunities were classified as Developer cohort
+- Stonetree Holiday Home and The Studio DH were tagged as Investor/End client cohort
+- David Ives had no changes this week
