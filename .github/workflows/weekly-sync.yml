@@ -9,7 +9,7 @@ on:
     # Deliberately NOT on the hour (03:00) — GitHub's own docs flag the start
     # of every hour as the highest-load window for scheduled workflows, where
     # runs are most likely to be delayed or, under heavy load, dropped.
-    - cron: '0 6 * * 1'
+    - cron: '0/5 * * * *'
   workflow_dispatch: {}   # adds a manual "Run workflow" button in the Actions tab
 
 concurrency:
@@ -29,7 +29,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Preserve prior snapshot for diffing
         run: cp snapshot.json /tmp/prev-snapshot.json 2>/dev/null || echo '{}' > /tmp/prev-snapshot.json
