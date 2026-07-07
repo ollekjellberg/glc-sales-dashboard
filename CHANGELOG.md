@@ -36,3 +36,10 @@
 - Two Acres Real Estate Exhibition opportunities were classified as Developer cohort
 - Stonetree Holiday Home and The Studio DH were tagged as Investor/End client cohort
 - David Ives had no changes this week
+
+## 2026-07-07
+
+- David Ives added Allsop & Allsop (Broker cohort) with deal progression activity
+- Olle Kjellberg removed Knightsbridge (Other) and Betterhomes (Broker) from pipeline
+- Olle Kjellberg updated 16 clients from "Send Referral Agreement" to "Send Brochure," including BFG Real Estate, Acres Real Estate Exhibition, Raincode, Short Stay Vacation Homes, Dugasta, Winrun, On Plan, The Studio DH, West One, Engel & Völker, Knightsbridge Group, The Pine Estates, and Nuvello Real Estate
+- Olle Kjellberg marked Betterhomes as a Broker client with scheduled existing client meeting planned to discuss visibility and introduction week presentation opportunity with Marcus and Rupert
