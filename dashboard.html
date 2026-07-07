@@ -212,7 +212,7 @@ html[data-theme="dark"] .daterange input{color-scheme:dark}
   <div class="card panel" id="cohortTrendCard" style="margin-bottom:18px;display:none">
     <div class="p-eyebrow">Activity over time — by cohort</div>
     <div class="p-head"><div class="p-title">Weekly meeting volume by client cohort</div>
-      <div class="p-note">19 Jan – 02 Jul 2026</div></div>
+      <div class="p-note" id="cohortTrendRange"></div></div>
     <div id="cohortTrend"></div>
     <div class="legend" id="cohortTrendLegend"></div>
   </div>
@@ -357,8 +357,20 @@ html[data-theme="dark"] .daterange input{color-scheme:dark}
 <script src="commentary.js" onerror="/* commentary.js not generated yet — dashboard still works fine without it */"></script>
 <script>/* ============ The Global Living Company — Sales Performance ============ */
 const DATA = window.GLC_DATA;
-/* Tracking window: 19 Jan – 02 Jul 2026 (weeks w/c 2026-01-19 → 2026-06-29) */
-const TRACK_FROM='2026-01-19', TRACK_TO_WEEK='2026-06-29', TRACK_TO_LABEL='02 Jul 2026';
+/* Tracking window: fixed start 19 Jan 2026; end = the most recent meeting
+   logged on either board. Recomputed automatically every time data.js
+   updates, so the window rolls forward with each weekly sync. */
+const TRACK_FROM='2026-01-19';
+const _allDates = Object.values(DATA).flatMap(p=>p.records.map(r=>r.d||r.w)).filter(d=>d && d>=TRACK_FROM).sort();
+const TRACK_TO_DATE = _allDates.length ? _allDates[_allDates.length-1] : TRACK_FROM;
+const TRACK_TO_WEEK = (function(){ // Monday of the week containing the latest meeting
+  const d=new Date(TRACK_TO_DATE+'T00:00:00Z'); const day=d.getUTCDay();
+  d.setUTCDate(d.getUTCDate() + (day===0?-6:1-day));
+  return d.toISOString().slice(0,10);
+})();
+const _fmtWinDate = s=>{const d=new Date(s+'T00:00:00Z');return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});};
+const _fmtWinShort = s=>{const d=new Date(s+'T00:00:00Z');return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'});};
+const TRACK_TO_LABEL = _fmtWinDate(TRACK_TO_DATE);
 Object.keys(DATA).forEach(p=>{
   DATA[p].records = DATA[p].records.filter(r=>r.w && r.w>=TRACK_FROM && r.w<=TRACK_TO_WEEK);
 });
@@ -544,7 +556,7 @@ function renderMeta(){
   const recs=allRecords();
   const dates=recs.map(r=>parseD(r.d)).filter(Boolean).sort((a,b)=>a-b);
   const fmt=d=>d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
-  const win = '19 Jan 2026 – 02 Jul 2026';
+  const win = '19 Jan 2026 – ' + TRACK_TO_LABEL;
   const pl = {'4w':'Last 4 weeks','8w':'Last 8 weeks','12w':'Last 12 weeks','all':'Full tracked period'}[state.period];
   $('#meta').innerHTML=`<span class="role">${getPersonData(state.person).role}</span><span class="dot"></span>
     <span class="window">Tracking window ${win}</span><span class="dot"></span>
@@ -659,7 +671,8 @@ function renderCohortTrend(){
   if(state.person===TEAM){ card.style.display='none'; return; }
   card.style.display='';
   const recs=DATA[state.person].records.filter(r=>r.w && r.w>=TRACK_FROM && r.w<=TRACK_TO_WEEK);
-  const series=cohortWeeklySeries(recs,TRACK_FROM,TRACK_TO_WEEK); // week of 29 Jun covers 02 Jul
+  $('#cohortTrendRange').textContent = '19 Jan – ' + TRACK_TO_LABEL;
+  const series=cohortWeeklySeries(recs,TRACK_FROM,TRACK_TO_WEEK); // window end rolls forward with the latest logged meeting
   $('#cohortTrend').innerHTML=multiLineChart(series,COHORT_LINES);
   $('#cohortTrendLegend').innerHTML=COHORT_LINES.map(l=>{
     const tot=series.reduce((s,wk)=>s+(wk.counts[l.k]||0),0);
@@ -751,18 +764,30 @@ function renderInsights(){
     <span class="n" title="${s.s} successful of ${s.n} meetings">${s.rate}%</span></div>`).join('')+
     `<div class="p-note" style="margin-top:8px">${stats.map(s=>`${s.k}: ${s.s}/${s.n}`).join(' · ')}</div>`;
 }
-const LB_RANGES = [
-  {id:'all', lab:'Full period (19 Jan – 02 Jul)', from:'2026-01-19', to:'2026-07-02'},
-  {id:'4w',  lab:'Last 4 weeks',  from:'2026-06-08', to:'2026-07-02'},
-  {id:'8w',  lab:'Last 8 weeks',  from:'2026-05-11', to:'2026-07-02'},
-  {id:'12w', lab:'Last 12 weeks', from:'2026-04-13', to:'2026-07-02'},
-  {id:'jan', lab:'January 2026',  from:'2026-01-19', to:'2026-01-31'},
-  {id:'feb', lab:'February 2026', from:'2026-02-01', to:'2026-02-28'},
-  {id:'mar', lab:'March 2026',    from:'2026-03-01', to:'2026-03-31'},
-  {id:'apr', lab:'April 2026',    from:'2026-04-01', to:'2026-04-30'},
-  {id:'may', lab:'May 2026',      from:'2026-05-01', to:'2026-05-31'},
-  {id:'jun', lab:'June 2026',     from:'2026-06-01', to:'2026-07-02'},
-];
+const LB_RANGES = (function(){
+  const to = TRACK_TO_DATE;
+  const minusDays = (iso,days)=>{const d=new Date(iso+'T00:00:00Z'); d.setUTCDate(d.getUTCDate()-days); return d.toISOString().slice(0,10);};
+  const ranges = [
+    {id:'all', lab:`Full period (19 Jan – ${_fmtWinShort(to)})`, from:TRACK_FROM, to},
+    {id:'4w',  lab:'Last 4 weeks',  from:minusDays(to,27), to},
+    {id:'8w',  lab:'Last 8 weeks',  from:minusDays(to,55), to},
+    {id:'12w', lab:'Last 12 weeks', from:minusDays(to,83), to},
+  ];
+  // One entry per calendar month from January up to the month of the latest meeting
+  const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const endD=new Date(to+'T00:00:00Z');
+  const year=endD.getUTCFullYear();
+  for(let m=0;m<=endD.getUTCMonth();m++){
+    const lastDay=new Date(Date.UTC(year,m+1,0)).getUTCDate();
+    ranges.push({
+      id:'m'+m,
+      lab:`${MONTHS[m]} ${year}`,
+      from: m===0 ? TRACK_FROM : `${year}-${String(m+1).padStart(2,'0')}-01`,
+      to:   `${year}-${String(m+1).padStart(2,'0')}-${String(lastDay).padStart(2,'0')}`,
+    });
+  }
+  return ranges;
+})();
 state.lbRange='all';
 function lbFilteredRecords(p){
   const rg=LB_RANGES.find(r=>r.id===state.lbRange)||LB_RANGES[0];
@@ -964,9 +989,13 @@ function renderPlanLastWeek(){
 function renderAlerts(){
   const recs=periodRecords(), all=allRecords();
   const a=[];
-  const missing=recs.filter(r=>!r.a||r.a.trim()===''&&r.d).length;
-  const missingTrue=recs.filter(r=>(!r.a||r.a==='')).length;
-  if(missingTrue>0) a.push({t:'warn',h:`<b>${missingTrue} meeting${missingTrue>1?'s':''}</b> awaiting an actual outcome.`});
+  const awaiting=recs.filter(r=>(!r.a||r.a==='')).sort((x,y)=>(x.d||x.w||'').localeCompare(y.d||y.w||''));
+  if(awaiting.length>0){
+    const SHOW=Math.max(5, Math.min(awaiting.length, 5)); // list at least 5 when 5+ exist
+    const fmtD=s=>{const d=parseD(s);return d?d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}):'no date';};
+    const listed=awaiting.slice(0,SHOW).map(r=>`${r.c||'(no client)'} <span style="color:var(--muted)">(${fmtD(r.d||r.w)})</span>`).join(' · ');
+    a.push({t:'warn',h:`<b>${awaiting.length} meeting${awaiting.length>1?'s':''}</b> awaiting an actual outcome: ${listed}${awaiting.length>SHOW?` <span style="color:var(--muted)">+${awaiting.length-SHOW} more in the meeting log</span>`:''}`});
+  }
   const resched=recs.filter(r=>r.a==='Rescheduled').length;
   if(resched>0) a.push({t:'warn',h:`<b>${resched} rescheduled</b> — follow-up needed to keep momentum.`});
   // dup detection (same client+date)
