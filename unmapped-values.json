@@ -1,52 +1,12 @@
 [
   {
-    "label": "Olle Kjellberg type",
-    "itemId": "2770590508",
-    "value": "Intro/first meeting"
+    "label": "Olle Kjellberg expected",
+    "itemId": "2770564502",
+    "value": "Relationship Advance"
   },
   {
-    "label": "Olle Kjellberg type",
-    "itemId": "2770590509",
-    "value": "Intro/first meeting"
-  },
-  {
-    "label": "Olle Kjellberg type",
-    "itemId": "2770567267",
-    "value": "Intro/first meeting"
-  },
-  {
-    "label": "Olle Kjellberg type",
-    "itemId": "2770567269",
-    "value": "Intro/first meeting"
-  },
-  {
-    "label": "Olle Kjellberg cohort",
-    "itemId": "2770567271",
-    "value": "Event"
-  },
-  {
-    "label": "Olle Kjellberg type",
-    "itemId": "2770567272",
-    "value": "Intro/first meeting"
-  },
-  {
-    "label": "Olle Kjellberg cohort",
-    "itemId": "2770567273",
-    "value": "Event"
-  },
-  {
-    "label": "Olle Kjellberg type",
-    "itemId": "2770567274",
-    "value": "Intro/first meeting"
-  },
-  {
-    "label": "Olle Kjellberg cohort",
-    "itemId": "2770590909",
-    "value": "Investor"
-  },
-  {
-    "label": "Olle Kjellberg cohort",
-    "itemId": "2770590923",
-    "value": "Investor"
+    "label": "Olle Kjellberg actual",
+    "itemId": "2770564502",
+    "value": "Relationship Advance"
   }
 ]

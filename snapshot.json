@@ -3563,11 +3563,24 @@
         "e": "Deal progression",
         "a": null,
         "n": ""
+      },
+      {
+        "id": "2770577495",
+        "w": "2026-07-06",
+        "d": "2026-07-08",
+        "c": "Allsop & Allsop",
+        "p": "Matthew Simister",
+        "co": "Broker",
+        "t": "New client meeting",
+        "o": "Introduce Global Living",
+        "e": "Send Brochure",
+        "a": "Deal progression",
+        "n": ""
       }
     ],
     "dashboard": {
       "thisWeek": "2026-07-06",
-      "planTotal": 8,
+      "planTotal": 9,
       "planByType": [
         {
           "k": "Intro / first meeting",
@@ -3579,7 +3592,7 @@
         },
         {
           "k": "New client meeting",
-          "v": 0
+          "v": 1
         },
         {
           "k": "Event",
@@ -3625,7 +3638,7 @@
         },
         {
           "k": "Send Brochure",
-          "v": 0
+          "v": 1
         },
         {
           "k": "Send Referral Agreement",
@@ -3848,8 +3861,8 @@
         "co": "Broker",
         "t": "Existing client meeting",
         "o": "Deal progression",
-        "e": "Send Referral Agreement",
-        "a": "Send Referral Agreement",
+        "e": "Send Brochure",
+        "a": "Send Brochure",
         "n": ""
       },
       {
@@ -3887,7 +3900,7 @@
         "co": "Developer",
         "t": "Event",
         "o": "Introduce Global Living",
-        "e": "Send Referral Agreement",
+        "e": "Send Brochure",
         "a": "Send Brochure",
         "n": ""
       },
@@ -3900,7 +3913,7 @@
         "co": "Other",
         "t": "Intro / first meeting",
         "o": "Introduce Global Living",
-        "e": "Send Referral Agreement",
+        "e": "Send Brochure",
         "a": "Qualify opportunity",
         "n": ""
       },
@@ -3913,7 +3926,7 @@
         "co": "Developer",
         "t": "Event",
         "o": "Introduce Global Living",
-        "e": "Send Referral Agreement",
+        "e": "Send Brochure",
         "a": "Send Brochure",
         "n": ""
       },
@@ -3926,7 +3939,7 @@
         "co": "Holiday Homes",
         "t": "Intro / first meeting",
         "o": "Introduce Global Living",
-        "e": "Send Referral Agreement",
+        "e": "Send Brochure",
         "a": "Send Brochure",
         "n": ""
       },
@@ -3952,7 +3965,7 @@
         "co": "Broker",
         "t": "Intro / first meeting",
         "o": "Introduce Global Living",
-        "e": "Send Referral Agreement",
+        "e": "Send Brochure",
         "a": "Rescheduled",
         "n": ""
       },
@@ -4017,7 +4030,7 @@
         "co": "Holiday Homes",
         "t": "Intro / first meeting",
         "o": "Introduce Global Living",
-        "e": "Send Referral Agreement",
+        "e": "Send Brochure",
         "a": "Proposals / Quotes Issuance",
         "n": ""
       },
@@ -4121,7 +4134,7 @@
         "co": "Holiday Homes",
         "t": "Intro / first meeting",
         "o": "Relationship advance",
-        "e": "Send Referral Agreement",
+        "e": "Send Brochure",
         "a": "Send Brochure",
         "n": ""
       },
@@ -4134,7 +4147,7 @@
         "co": "Investor/End client",
         "t": "Intro / first meeting",
         "o": "Introduce Global Living",
-        "e": "Send Referral Agreement",
+        "e": "Send Brochure",
         "a": "Rescheduled",
         "n": ""
       },
@@ -4147,7 +4160,7 @@
         "co": "Developer",
         "t": "Intro / first meeting",
         "o": "Introduce Global Living",
-        "e": "Send Referral Agreement",
+        "e": "Send Brochure",
         "a": "Send Brochure",
         "n": ""
       },
@@ -4303,7 +4316,7 @@
         "co": "Broker",
         "t": "Intro / first meeting",
         "o": "Introduce Global Living",
-        "e": "Send Referral Agreement",
+        "e": "Send Brochure",
         "a": "Rescheduled",
         "n": ""
       },
@@ -4394,7 +4407,7 @@
         "co": "Developer",
         "t": "Intro / first meeting",
         "o": "Introduce Global Living",
-        "e": "Send Referral Agreement",
+        "e": "Send Brochure",
         "a": "Rescheduled",
         "n": ""
       },
@@ -6214,7 +6227,7 @@
         "co": "Broker",
         "t": "Intro / first meeting",
         "o": "Proposals / Presentation",
-        "e": "Send Referral Agreement",
+        "e": "Send Brochure",
         "a": "Deal progression",
         "n": ""
       },
@@ -7229,7 +7242,7 @@
         "t": "Intro / first meeting",
         "o": "Introduce Global Living",
         "e": "Send Brochure",
-        "a": "Send Referral Agreement",
+        "a": "Send Brochure",
         "n": ""
       },
       {
@@ -7307,7 +7320,7 @@
         "t": "Intro / first meeting",
         "o": "Introduce Global Living",
         "e": "Send Brochure",
-        "a": "Send Referral Agreement",
+        "a": "Send Brochure",
         "n": ""
       },
       {
@@ -7412,19 +7425,6 @@
         "o": "Introduce Global Living",
         "e": "Send Brochure",
         "a": "Send Brochure",
-        "n": ""
-      },
-      {
-        "id": "2770563520",
-        "w": "2026-06-01",
-        "d": "2026-06-04",
-        "c": "Knightsbridge",
-        "p": "Lukas Blazkowski",
-        "co": "Other",
-        "t": "Intro / first meeting",
-        "o": "Introduce Global Living",
-        "e": "Send Referral Agreement",
-        "a": "Send Referral Agreement",
         "n": ""
       },
       {
@@ -7566,8 +7566,8 @@
         "co": "Broker",
         "t": "Intro / first meeting",
         "o": "Proposals / Presentation",
-        "e": "Send Referral Agreement",
-        "a": "Send Referral Agreement",
+        "e": "Send Brochure",
+        "a": "Send Brochure",
         "n": ""
       },
       {
@@ -7701,35 +7701,22 @@
         "n": ""
       },
       {
-        "id": "2770563311",
-        "w": "2026-07-06",
-        "d": "2026-07-07",
-        "c": "Betterhomes",
-        "p": "Jacob Bramley",
-        "co": "Broker",
-        "t": "Existing client meeting",
-        "o": "Relationship advance",
-        "e": "New lead created",
-        "a": null,
-        "n": ""
-      },
-      {
         "id": "2770564502",
         "w": "2026-07-06",
         "d": "2026-07-07",
         "c": "Betterhomes",
         "p": "Rhema Simalabwi",
-        "co": null,
-        "t": null,
-        "o": null,
+        "co": "Broker",
+        "t": "Existing client meeting",
+        "o": "Relationship advance",
         "e": null,
         "a": null,
-        "n": ""
+        "n": "Need to schedule a meeting with Marcus in marketing next week to discuss more visibility for TGLC in their offices. Also to discuss with Rupert regarding introduction week - if we can come and present for 10-15 minutes and share our details during that time."
       }
     ],
     "dashboard": {
       "thisWeek": "2026-07-06",
-      "planTotal": 2,
+      "planTotal": 1,
       "planByType": [
         {
           "k": "Intro / first meeting",
@@ -7783,7 +7770,7 @@
         },
         {
           "k": "New lead created",
-          "v": 1
+          "v": 0
         },
         {
           "k": "Send Brochure",
