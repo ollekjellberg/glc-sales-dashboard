@@ -2,14 +2,14 @@ name: Weekly Monday.com sync
 
 on:
   schedule:
-    # Currently DAILY at 10am UTC (07:17 Asia/Dubai) — you set this to daily
+    # Currently DAILY at 06:00 UTC (10;00 Asia/Dubai) — you set this to daily
     # yourself to test the automation tomorrow morning. Once you've confirmed
     # it's firing reliably, change this back to weekly:
-    #   - cron: '17 3 * * 1'   (Mondays only)
+    #   - cron: '0 6 * * 1'   (Mondays only)
     # Deliberately NOT on the hour (03:00) — GitHub's own docs flag the start
     # of every hour as the highest-load window for scheduled workflows, where
     # runs are most likely to be delayed or, under heavy load, dropped.
-    - cron: '0/5 * * * *'
+    - cron: '0 6 * * 1'
   workflow_dispatch: {}   # adds a manual "Run workflow" button in the Actions tab
 
 concurrency:
@@ -29,7 +29,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 20
 
       - name: Preserve prior snapshot for diffing
         run: cp snapshot.json /tmp/prev-snapshot.json 2>/dev/null || echo '{}' > /tmp/prev-snapshot.json
@@ -81,3 +81,29 @@ jobs:
               git push
             fi
           fi
+
+      - name: Build standalone dashboard for email
+        if: steps.commit.outputs.committed == 'true'
+        run: node scripts/build-standalone.js
+
+      - name: Email dashboard
+        if: steps.commit.outputs.committed == 'true'
+        continue-on-error: true   # an email hiccup must never fail the data sync
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.office365.com
+          server_port: 587
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          from: ${{ secrets.MAIL_USERNAME }}
+          to: ${{ secrets.MAIL_TO }}
+          subject: "GLC Sales Dashboard — weekly update"
+          body: |
+            Hi,
+
+            The GLC sales dashboard has been updated with this week's Monday.com data.
+
+            The full dashboard is attached — just open the file in any browser.
+
+            (This email is sent automatically by the weekly sync, only when the data has actually changed.)
+          attachments: GLC-Sales-Dashboard.html
