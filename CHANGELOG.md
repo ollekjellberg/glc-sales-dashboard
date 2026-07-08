@@ -54,3 +54,8 @@
 
 - Olle Kjellberg lost one deal this week: ExampleClient from the Broker cohort
 - David Ives' numbers remain unchanged at $275k
+
+## 2026-07-08
+
+- Olle Kjellberg added one new lead: ExampleClient in the Broker cohort
+- David Ives' numbers remain unchanged at $275
