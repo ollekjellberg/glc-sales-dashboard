@@ -105,5 +105,5 @@ jobs:
 
             The full dashboard is attached — just open the file in any browser.
 
-            (This email is sent automatically by the weekly sync, only when the data has actually changed.)
+            (This email is sent automatically by the weekly sync, only when the data has actually changed. It is currently sent from Charlie's Gmail, but can be sent through a GLC bot on outlook as soon as the admin password is provided.)
           attachments: GLC-Sales-Dashboard.html
