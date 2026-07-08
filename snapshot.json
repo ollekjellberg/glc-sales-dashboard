@@ -7712,11 +7712,24 @@
         "e": null,
         "a": null,
         "n": "Need to schedule a meeting with Marcus in marketing next week to discuss more visibility for TGLC in their offices. Also to discuss with Rupert regarding introduction week - if we can come and present for 10-15 minutes and share our details during that time."
+      },
+      {
+        "id": "2773112587",
+        "w": "2026-07-06",
+        "d": "2026-07-08",
+        "c": "ExampleClient",
+        "p": "Example",
+        "co": "Broker",
+        "t": "Internal deal meeting",
+        "o": "Deal progression",
+        "e": null,
+        "a": "New lead created",
+        "n": ""
       }
     ],
     "dashboard": {
       "thisWeek": "2026-07-06",
-      "planTotal": 1,
+      "planTotal": 2,
       "planByType": [
         {
           "k": "Intro / first meeting",
@@ -7740,7 +7753,7 @@
         },
         {
           "k": "Internal deal meeting",
-          "v": 0
+          "v": 1
         }
       ],
       "expByOutcome": [
