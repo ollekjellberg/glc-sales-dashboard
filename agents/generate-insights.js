@@ -108,6 +108,11 @@ async function main() {
     return;
   }
 
+  // ---- Step 0: Haiku turns salespeople's notes into Attention reminders ----
+  // Rebuilt from scratch from the CURRENT notes on every run — never appended —
+  // so a note removed on Monday.com automatically drops its reminder here.
+  await generateReminders(currSnapshot);
+
   // ---- Step 1: Haiku writes the changelog ----
   const changelogText = await callClaude(
     HAIKU_MODEL,
@@ -115,7 +120,11 @@ async function main() {
 Input is a JSON diff between last week's and this week's data, per salesperson.
 Write 3-8 bullet points total, plain English, no jargon, mentioning specific
 client names and cohorts where relevant. No preamble, no headers, just bullets
-starting with "-". Do not invent anything not present in the diff.`,
+starting with "-".
+STRICT: use ONLY facts present in the diff. The data contains NO monetary
+values, revenue, or deal sizes — never mention money or any figure that is not
+literally in the input. If a person has no changes, either omit them or say
+"no changes this week" with nothing further.`,
     JSON.stringify(diff),
     600
   );
@@ -161,6 +170,93 @@ it compares both or applies to the business overall.`,
   };
   fs.writeFileSync('commentary.js', `window.GLC_COMMENTARY = ${JSON.stringify(commentary)};\n`);
   console.log(`commentary.js written with ${items.length} insight(s).`);
+}
+
+// Build Attention reminders from the salespeople's notes.
+// Rules that make this safe:
+//  - Only records that actually have a non-empty note are sent to Haiku.
+//  - Haiku must key every reminder to a record id from the input; any reminder
+//    whose id is not in the input is DROPPED before it reaches the dashboard
+//    (hard guard against invented content).
+//  - reminders.js is fully rewritten every run (never appended), so a note
+//    deleted on Monday.com automatically clears its reminder on the next sync.
+async function generateReminders(snapshot) {
+  const noted = [];
+  for (const [person, p] of Object.entries(snapshot)) {
+    for (const r of (p.records || [])) {
+      const note = (r.n || '').trim();
+      if (note) noted.push({ id: r.id, person, client: r.c || '(no client)', date: r.d || r.w || null, note });
+    }
+  }
+
+  if (!noted.length) {
+    fs.writeFileSync('reminders.js', 'window.GLC_REMINDERS = {"generated":"' + new Date().toISOString() + '","items":[]};\n');
+    console.log('No notes present on either board — reminders.js written empty.');
+    return;
+  }
+
+  let raw;
+  try {
+    raw = await callClaude(
+      HAIKU_MODEL,
+      `You turn salespeople's meeting notes into short follow-up reminders for a
+sales dashboard's Attention section.
+
+Input: a JSON array of records, each {id, person, client, date, note}.
+
+For each note that implies something actionable or worth remembering (e.g. a
+no-show to rechase, a promised follow-up, a client request, a warning sign),
+write ONE reminder. Skip notes that are purely descriptive with nothing to act
+on. It is fine to return fewer reminders than notes, or an empty array.
+
+STRICT RULES — violating any of these makes the output unusable:
+- "id" must be copied EXACTLY from an input record. Never invent ids.
+- Use ONLY information present in that record's note/client/date. Do not add
+  numbers, amounts, names, or facts that are not in the input.
+- One reminder per record maximum.
+
+Respond with ONLY a raw JSON array, no markdown fences, no preamble:
+[{"id": "<record id from input>", "text": "one short imperative sentence, max 20 words"}]`,
+      JSON.stringify(noted),
+      800
+    );
+  } catch (err) {
+    console.error('Reminder generation failed (non-fatal) — keeping existing reminders.js:', err.message);
+    return;
+  }
+
+  let items;
+  try {
+    const cleaned = raw.replace(/^```json\s*|\s*```$/g, '');
+    items = JSON.parse(cleaned);
+    if (!Array.isArray(items)) throw new Error('not an array');
+  } catch (err) {
+    console.error('Haiku returned invalid reminder JSON (non-fatal) — keeping existing reminders.js:', err.message);
+    return;
+  }
+
+  // Hard validation: every reminder must map to a real noted record.
+  const byId = Object.fromEntries(noted.map(n => [String(n.id), n]));
+  const seen = new Set();
+  const valid = [];
+  for (const it of items) {
+    const src = byId[String(it.id)];
+    if (!src) { console.warn(`Dropped reminder with unknown id "${it.id}" (not in input).`); continue; }
+    if (seen.has(String(it.id))) continue; // one per record
+    if (typeof it.text !== 'string' || !it.text.trim()) continue;
+    seen.add(String(it.id));
+    valid.push({
+      id: String(src.id),
+      person: src.person,
+      client: src.client,
+      date: src.date,
+      text: it.text.trim().slice(0, 200),
+    });
+  }
+
+  const out = { generated: new Date().toISOString(), items: valid };
+  fs.writeFileSync('reminders.js', `window.GLC_REMINDERS = ${JSON.stringify(out)};\n`);
+  console.log(`reminders.js written with ${valid.length} reminder(s) from ${noted.length} noted record(s).`);
 }
 
 main().catch(err => {
