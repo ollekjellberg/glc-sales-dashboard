@@ -1,202 +1,150 @@
-[README.md](https://github.com/user-attachments/files/29701385/README.md)
-# GLC Sales Dashboard — weekly Monday.com sync
+[README.md](https://github.com/user-attachments/files/29787817/README.md)
+# GLC Sales Dashboard — automated weekly sync, insights, and email
 
-This repo contains:
+A sales performance dashboard for David Ives and Olle Kjellberg, backed by
+their Monday.com boards, kept up to date automatically with no manual steps.
 
-- `dashboard.html` — the dashboard itself. **You never need to edit this again.**
-- `data.js` — the data the dashboard reads. Rewritten automatically every Monday.
-- `snapshot.json` — last week's data, kept for change detection. Auto-managed.
-- `scripts/extract.js` — the script that pulls Monday.com and rewrites `data.js`.
-  No AI involved — plain, deterministic code.
-- `.github/workflows/weekly-sync.yml` — tells GitHub to run `extract.js` every
-  Monday at 07:00 Gulf time automatically.
-- `agents/generate-insights.js` — runs only after a successful data sync.
-  Haiku writes a plain-English changelog of what changed; Opus reads the new
-  data and changelog and writes 3-5 narrative insights. **This step only ever
-  writes `commentary.js` and `CHANGELOG.md` — it never touches `data.js` or
-  `dashboard.html`.** If it fails for any reason, the data sync you already
-  have is unaffected; the dashboard just won't show a commentary card that week.
-- `commentary.js` — the agent-generated insights, read by the dashboard's
-  "Weekly commentary" card. Absent until the first successful agent run.
-
-There are only **two things you need to fill in** before this works. Everything
-else is done.
+If you're taking over this project from someone else, read **`HANDOVER.md`**
+instead — it's the step-by-step ownership-transfer guide. This file is a
+reference for how the system works day to day.
 
 ---
 
-## Step 1 — Create the repo (skip if you already have one)
+## What's in this repo
 
-1. Go to github.com → **New repository** → give it a name → **Create**.
-2. On your computer, in the folder where these files are:
-   ```bash
-   git init
-   git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPO.git
-   git add .
-   git commit -m "Initial dashboard + sync pipeline"
-   git branch -M main
-   git push -u origin main
-   ```
-
-If the repo already exists, just copy all these files into it, then `git add .`,
-`git commit`, `git push`.
-
----
-
-## Step 2 — Get a Monday.com API token
-
-1. In Monday.com, click your avatar (bottom left) → **Admin** → **API**.
-2. Generate a personal API token and copy it. Keep it secret — treat it like a password.
+| File | What it is |
+|---|---|
+| `dashboard.html` | The dashboard itself. Pure code — never touched by automation. |
+| `data.js` | The dashboard's data. **Rewritten automatically every week.** Never edit by hand. |
+| `snapshot.json` | Last sync's data, kept for week-over-week change detection. Auto-managed. |
+| `unmapped-values.json` | Only appears if Monday.com has a cohort/type/outcome value the dashboard doesn't recognise. Auto-created/deleted. |
+| `rejected-records.json` | Only appears if a Monday.com row has no usable date. Auto-created/deleted. |
+| `scripts/extract.js` | Pulls both Monday.com boards and rewrites `data.js`. Deterministic — no AI. |
+| `scripts/build-standalone.js` | Bundles the dashboard + its data into one file for the weekly email attachment. |
+| `agents/generate-insights.js` | The only AI step. Haiku writes a changelog and turns salespeople's notes into reminders; Opus writes narrative insights. Writes only `commentary.js`, `reminders.js`, and `CHANGELOG.md` — **never** `data.js` or `dashboard.html`. |
+| `commentary.js` | Agent-written insights, shown in the dashboard's "Weekly commentary" card. Absent until the first successful agent run. |
+| `reminders.js` | Agent-written follow-up reminders (from meeting notes), shown at the top of the Attention section. Rebuilt from scratch every run — delete a note on Monday.com and its reminder disappears on the next sync. |
+| `.github/workflows/weekly-sync.yml` | The automation pipeline itself (see below). |
+| `HANDOVER.md` | Full ownership-transfer instructions for a new owner. |
 
 ---
 
-## Step 3 — Add the token to GitHub (as a secret, not in code)
+## How the pipeline runs, end to end
 
-1. In your repo on GitHub: **Settings** → **Secrets and variables** → **Actions**.
-2. **New repository secret**.
-   - Name: `MONDAY_API_KEY`
-   - Value: paste the token from Step 2.
-3. Save.
+**The trigger is external, not GitHub's own scheduler.** GitHub Actions'
+built-in cron proved unreliable for this repo — scheduled runs simply never
+fired, even when correctly configured (best-effort scheduling is a known
+GitHub limitation). The reliable fix in use now: a **cron-job.org** account
+calls GitHub's API directly every **Monday at 10:00 Asia/Dubai**, using the
+same `workflow_dispatch` mechanism as the manual "Run workflow" button — which
+has a perfect track record. GitHub's own weekly cron is still present in the
+workflow file as a harmless backup; if it ever starts working, the
+`concurrency` block prevents it from racing the external trigger.
 
-This lets the weekly workflow use the key without it ever appearing in your code
-or commit history.
+Each run does the following, in order:
 
----
+1. **Preserve last week's snapshot** for comparison.
+2. **Extract** — pull both boards from Monday.com, validate every value
+   against the dashboard's known categories. Anything unrecognised is left
+   blank and logged to `unmapped-values.json` rather than guessed at. Rows
+   with no usable date are skipped and logged to `rejected-records.json`.
+   Monday.com's API is fetched **twice, ~10 seconds apart, and merged** —
+   their search index is eventually-consistent and can briefly under-report
+   items right after an edit; this self-heals that within the same run.
+3. **Sanity check** — if either person's record count moves by more than 50%
+   since last week, or drops by more than 10%, the run aborts without writing
+   anything. This catches a Monday.com glitch before it can silently corrupt
+   the dashboard.
+4. **Commit** `data.js` + `snapshot.json` — only if something actually
+   changed. No change, no commit, no downstream steps run.
+5. **Generate insights** (Haiku + Opus) — changelog, narrative insights, and
+   note-based reminders. Skipped entirely if step 4 found nothing to commit.
+   Non-fatal if it fails: the data sync above is already complete regardless.
+6. **Commit** `commentary.js` / `reminders.js` / `CHANGELOG.md`.
+7. **Build and email** a self-contained copy of the dashboard to the address
+   list in the `MAIL_TO` secret, sent via a Gmail relay account. Also
+   non-fatal if it fails.
 
-## Step 4 — Fill in your board IDs (thing #1 only you can get)
-
-Open each board in Monday.com and look at the URL:
-
-```
-https://your-company.monday.com/boards/1234567890
-                                        ^^^^^^^^^^ this number
-```
-
-Get this for both **"Weekly Planner: David"** and **"Weekly Planner: Olle"**.
-
-Open `scripts/extract.js`, find this block near the top, and replace the
-placeholders:
-
-```js
-const BOARDS = {
-  'David Ives': {
-    boardId: 'REPLACE_WITH_DAVID_BOARD_ID',   // <- paste David's board ID here
-    role: 'Managing Director',
-  },
-  'Olle Kjellberg': {
-    boardId: 'REPLACE_WITH_OLLE_BOARD_ID',    // <- paste Olle's board ID here
-    role: 'Business Development Manager',
-  },
-};
-```
-
----
-
-## Step 5 — Fill in your column IDs (thing #2 only you can get)
-
-Monday.com stores each board column under an internal ID (not the same as the
-label you see on screen), so the script needs a one-time mapping.
-
-**Easiest way to get it:** go to
-[api.monday.com/v2/try](https://api.monday.com/v2/try) (Monday's built-in API
-playground), paste in your token when prompted, and run this query
-— once per board, using the board ID from Step 4:
-
-```graphql
-query {
-  boards(ids: 1234567890) {
-    columns {
-      id
-      title
-    }
-  }
-}
-```
-
-You'll get back a list like:
-
-```json
-{ "id": "date4", "title": "Week Commencing" }
-{ "id": "text_mkxyz", "title": "Client" }
-{ "id": "status", "title": "Cohort" }
-```
-
-Match each `title` to the field it represents, then open `scripts/extract.js`
-and fill in `COLUMN_MAP`:
-
-```js
-const COLUMN_MAP = {
-  week:      'date4',       // the "Week Commencing" column's id
-  meetDate:  'REPLACE_ME',  // meeting date column
-  client:    'text_mkxyz',  // client / company name
-  contact:   'REPLACE_ME',  // named contact
-  cohort:    'status',      // Broker / Developer / Investor / Holiday Homes / Other
-  type:      'REPLACE_ME',  // meeting type
-  objective: 'REPLACE_ME',  // objective
-  expected:  'REPLACE_ME',  // expected outcome
-  actual:    'REPLACE_ME',  // actual outcome
-  notes:     'REPLACE_ME',  // free text notes
-};
-```
-
-> If David's and Olle's boards use different column layouts, tell me and I'll
-> adjust the script to use two separate maps — right now it assumes both
-> boards are laid out the same way.
-
-**Important:** the whitelist values in `extract.js` (cohort names, meeting
-types, outcome names) must match exactly what's typed into Monday.com's status
-columns — e.g. `Investor/End client`, not `Investor / End Client`. If Monday.com
-uses slightly different wording, either edit Monday.com's labels to match, or
-tell me the exact wording and I'll update the whitelist to match instead.
+If a week has no changes on either Monday.com board, the whole thing after
+step 3 is a no-op — no commit, no AI calls, no email. That's intentional, not
+a bug.
 
 ---
 
-## Step 6 — Push your changes
+## The five secrets this depends on
+
+Settings → Secrets and variables → Actions:
+
+| Secret | What it's for |
+|---|---|
+| `MONDAY_API_KEY` | Reads both Monday.com boards |
+| `ANTHROPIC_API_KEY` | Powers the Haiku/Opus insight generation |
+| `MAIL_USERNAME` | The Gmail relay account's address |
+| `MAIL_PASSWORD` | The Gmail relay's app password (not its login password) |
+| `MAIL_TO` | Comma-separated recipient list for the weekly email |
+
+The **external scheduler** (cron-job.org) holds one more credential, but it's
+outside this repo: a separate, narrowly-scoped GitHub token with only
+`Actions: Read and write` on this one repo, stored in the cron-job.org job's
+settings. It expires roughly every 90 days and needs manual renewal (see
+Maintenance, below).
+
+---
+
+## Board and column configuration
+
+Both salespeople's board IDs and column mappings live near the top of
+`scripts/extract.js`, clearly labelled. If a board is ever replaced (not just
+edited — an entirely new board), its column IDs will change even if the
+labels look identical, and need re-fetching:
 
 ```bash
-git add scripts/extract.js
-git commit -m "Configure board and column IDs"
-git push
+curl -s -X POST https://api.monday.com/v2 \
+  -H "Authorization: YOUR_MONDAY_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "query { boards(ids: NEW_BOARD_ID) { columns { id title } } }"}'
 ```
 
----
+Match each returned `title` to the right field in `COLUMN_MAP_BY_PERSON` and
+update the corresponding `boardId` in `BOARDS`.
 
-## Step 7 — Test it manually before trusting the schedule
-
-1. In your repo on GitHub, go to the **Actions** tab.
-2. Click **Weekly Monday.com sync** in the left sidebar.
-3. Click **Run workflow** → **Run workflow** (this button only appears because
-   of the `workflow_dispatch` line in the YAML — it lets you trigger it on
-   demand instead of waiting for Monday).
-4. Watch the run. Green check = it worked, and you'll see a new commit appear
-   with an updated `data.js`. Red X = click into the log; the error usually
-   points straight at the problem (wrong column ID, bad token, etc.).
-
-Once a manual run succeeds, the Monday 07:00 Gulf-time schedule takes over on
-its own — nothing more to do.
+**The cohort/type/outcome whitelist** in `extract.js` must match Monday.com's
+actual labels exactly (e.g. `Investor/End client`, not `Investor / End
+Client`). A mismatch doesn't break anything — it just nulls that field and
+logs it to `unmapped-values.json` for review.
 
 ---
 
-## What happens automatically each week
+## The dashboard's tracking window
 
-1. GitHub triggers the workflow Monday morning.
-2. `extract.js` pulls both Monday.com boards.
-3. Every value is checked against the dashboard's known categories
-   (cohorts, meeting types, outcomes). Anything unexpected is **not**
-   invented or guessed — the field is set to blank and logged in
-   `unmapped-values.json` for you to review.
-4. A sanity check compares the new total record count to last week's. If it's
-   moved by more than 50% in either direction, the run stops and **nothing is
-   changed** — this protects you from a Monday.com outage or a broken column
-   silently wiping your dashboard.
-5. If everything checks out, `data.js` and `snapshot.json` are rewritten and
-   committed automatically. The dashboard reflects the new data next time
-   it's opened — no manual steps.
+The dashboard's date range is **dynamic**, not hardcoded: it always starts
+19 Jan 2026 and automatically extends to whichever meeting was most recently
+logged across either board, recalculated every time the page loads. No manual
+adjustment needed as new weeks accumulate.
 
-## What this does *not* do (yet)
+---
 
-- It does not write narrative commentary about what changed — that's the
-  Haiku/Opus layer we discussed, which can be added on top of this once
-  the sync itself is running reliably.
-- `dashboard.html`'s code is never touched by automation — only `data.js`
-  changes. This is intentional: it's the safest way to guarantee the chart
-  logic, colours, and layout never silently break.
+## Testing changes manually
+
+**Actions** tab → **Weekly Monday.com sync** → **Run workflow** → confirm
+inside the dropdown that appears (it's a genuine two-click action; clicking
+only the first button does nothing). Watch the run's steps for errors — the
+log messages are generally specific about what went wrong (wrong column ID,
+bad token, email auth failure, etc.).
+
+---
+
+## Maintenance
+
+- **Every ~90 days**: the cron-job.org scheduler's GitHub token expires.
+  GitHub emails a warning first. Renew it (Developer settings → Fine-grained
+  tokens → generate a new one with the same `Actions: Read and write` scope)
+  and paste it into the cron-job.org job's Authorization header.
+- **If the weekly email stops arriving** but the dashboard itself is still
+  updating: check the Gmail relay's app password hasn't been revoked, and
+  check spam/junk on the recipient side.
+- **Never edit `data.js`, `snapshot.json`, `commentary.js`, or
+  `reminders.js` by hand** — all four are fully regenerated by the automation
+  on every run that finds a change, and hand edits will just be overwritten.
+- **`dashboard.html` is always safe to edit** — the automation never touches
+  it.
