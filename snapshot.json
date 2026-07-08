@@ -7712,15 +7712,28 @@
         "e": null,
         "a": null,
         "n": "Need to schedule a meeting with Marcus in marketing next week to discuss more visibility for TGLC in their offices. Also to discuss with Rupert regarding introduction week - if we can come and present for 10-15 minutes and share our details during that time."
+      },
+      {
+        "id": "2773182216",
+        "w": "2026-07-06",
+        "d": "2026-07-08",
+        "c": "ExampleClient",
+        "p": "Example",
+        "co": "Broker",
+        "t": "Intro / first meeting",
+        "o": "Introduce Global Living",
+        "e": null,
+        "a": "New lead created",
+        "n": "Schedule a second meeting with them tomorrow"
       }
     ],
     "dashboard": {
       "thisWeek": "2026-07-06",
-      "planTotal": 1,
+      "planTotal": 2,
       "planByType": [
         {
           "k": "Intro / first meeting",
-          "v": 0
+          "v": 1
         },
         {
           "k": "Existing client meeting",
