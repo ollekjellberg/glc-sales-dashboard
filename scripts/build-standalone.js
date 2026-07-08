@@ -37,5 +37,14 @@ if (commentaryTagMatch) {
   html = html.replace(commentaryTagMatch[0], inline);
 }
 
+// Inline reminders.js if it exists (same pattern)
+const remindersTagMatch = html.match(/<script src="reminders\.js"[^>]*><\/script>/);
+if (remindersTagMatch) {
+  const inline = fs.existsSync('reminders.js')
+    ? '<script>\n' + fs.readFileSync('reminders.js', 'utf8') + '\n</script>'
+    : '';
+  html = html.replace(remindersTagMatch[0], inline);
+}
+
 fs.writeFileSync(OUT, html);
 console.log(`Built ${OUT} (${(html.length / 1024).toFixed(0)} KB), fully self-contained.`);
