@@ -49,3 +49,8 @@
 - Olle Kjellberg added one new opportunity: ExampleClient in the Broker cohort, scheduled for week of July 6, 2026 (currently rescheduled)
 - David Ives' pipeline unchanged at $275k
 - Olle Kjellberg's pipeline grew to $309k with the new addition
+
+## 2026-07-08
+
+- Olle Kjellberg lost one deal this week: ExampleClient from the Broker cohort
+- David Ives' numbers remain unchanged at $275k
