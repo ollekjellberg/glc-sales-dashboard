@@ -64,3 +64,8 @@
 
 - Olle Kjellberg lost one deal this week: ExampleClient from the Broker cohort
 - David Ives held steady with no changes to his pipeline
+
+## 2026-07-08
+
+- Olle Kjellberg added a new lead with ExampleClient in the Broker cohort for week of July 6, 2026
+- David Ives no changes this week
