@@ -353,8 +353,9 @@ html[data-theme="dark"] .daterange input{color-scheme:dark}
 </div>
 
 <script src="data.js"></script>
-<script>window.GLC_COMMENTARY = window.GLC_COMMENTARY || null;</script>
+<script>window.GLC_COMMENTARY = window.GLC_COMMENTARY || null; window.GLC_REMINDERS = window.GLC_REMINDERS || null;</script>
 <script src="commentary.js" onerror="/* commentary.js not generated yet — dashboard still works fine without it */"></script>
+<script src="reminders.js" onerror="/* reminders.js not generated yet — dashboard still works fine without it */"></script>
 <script>/* ============ The Global Living Company — Sales Performance ============ */
 const DATA = window.GLC_DATA;
 /* Tracking window: fixed start 19 Jan 2026; end = the most recent meeting
@@ -989,6 +990,15 @@ function renderPlanLastWeek(){
 function renderAlerts(){
   const recs=periodRecords(), all=allRecords();
   const a=[];
+  // Note-based reminders (agent-generated from salespeople's Monday.com notes;
+  // rebuilt on every sync, so removed notes automatically drop their reminder)
+  const rem=window.GLC_REMINDERS;
+  if(rem && Array.isArray(rem.items)){
+    const fmtRD=s=>{const d=parseD(s);return d?d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}):'no date';};
+    rem.items
+      .filter(it=>state.person===TEAM || it.person===state.person)
+      .forEach(it=>a.push({t:'warn',h:`<b>Reminder — ${it.client}</b> <span style="color:var(--muted)">(${fmtRD(it.date)}${state.person===TEAM?` · ${it.person.split(' ')[0]}`:''})</span>: ${it.text}`}));
+  }
   const awaiting=recs.filter(r=>(!r.a||r.a==='')).sort((x,y)=>(x.d||x.w||'').localeCompare(y.d||y.w||''));
   if(awaiting.length>0){
     const SHOW=Math.max(5, Math.min(awaiting.length, 5)); // list at least 5 when 5+ exist
