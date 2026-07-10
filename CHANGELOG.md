@@ -78,3 +78,8 @@
 - Olle added Friday10amClient (Developer cohort) showing deal progression activity
 - Olle removed ExampleClient (Broker cohort) from the pipeline
 - Olle cleared a no-show note on Deluxe Holdai Homes and removed team oversight context from Betterhomes
+
+## 2026-07-10
+
+- Olle Kjellberg lost Friday10amClient from the Developer cohort
+- David Ives had no changes this week
