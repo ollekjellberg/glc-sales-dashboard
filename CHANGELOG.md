@@ -83,3 +83,10 @@
 
 - Olle Kjellberg lost Friday10amClient from the Developer cohort
 - David Ives had no changes this week
+
+## 2026-07-10
+
+- David Ives no changes this week
+- Olle Kjellberg added 5 new prospects: EXP Realty and two entries for Betterhomes in the Broker cohort, plus two entries for Engel & Völker in the Investor/End client cohort
+- Olle's activity with Engel & Völker includes deal progression and opportunity qualification
+- Olle has a brochure send scheduled for Betterhomes
