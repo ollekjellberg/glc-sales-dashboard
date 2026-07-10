@@ -117,3 +117,8 @@
 - Olle Kjellberg added Nuvello Real Estate (Broker cohort) to his pipeline
 - Olle Kjellberg marked Amico opportunity as "Qualify opportunity"
 - David Ives no changes this week
+
+## 2026-07-10
+
+- Olle Kjellberg moved Amico from Qualify opportunity to Deal progression
+- David Ives has no changes this week
