@@ -103,3 +103,11 @@
 
 - Olle Kjellberg added two entries for Invicta: one marked as deal progression in the Investor/End client cohort, and a follow-up entry the following week
 - David Ives has no changes this week
+
+## 2026-07-10
+
+- Olle added two new Investor/End client prospects: Invicta and Amico
+- Olle updated Invicta from a blank entry to a scheduled Existing client meeting focused on Deal progression
+- Olle shifted EXP Realty's activity date from July 8 to July 9
+- Olle moved Tasha Patel's activity from July 13 to July 16
+- David has no changes this week
