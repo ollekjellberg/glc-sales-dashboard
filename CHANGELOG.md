@@ -69,3 +69,12 @@
 
 - Olle Kjellberg added a new lead with ExampleClient in the Broker cohort for week of July 6, 2026
 - David Ives no changes this week
+
+## 2026-07-10
+
+- David cleared notes on 25 client interactions across the board, including multiple reschedules with Damac, Allsop & Allsop, Betterhomes, and Christies
+- David removed status notes from Gulf Land Property (was marked "Signed off sick"), McCone Properties (was tracking "2 show units"), and Landlord (Greece property context)
+- David cleared follow-up flags on Aurora and two Betterhomes entries that were awaiting wider team conversations
+- Olle added Friday10amClient (Developer cohort) showing deal progression activity
+- Olle removed ExampleClient (Broker cohort) from the pipeline
+- Olle cleared a no-show note on Deluxe Holdai Homes and removed team oversight context from Betterhomes
