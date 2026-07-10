@@ -7779,6 +7779,19 @@
         "n": ""
       },
       {
+        "id": "2776054350",
+        "w": "2026-07-06",
+        "d": "2026-07-10",
+        "c": "Invicta",
+        "p": "Tahmina",
+        "co": "Investor/End client",
+        "t": "Existing client meeting",
+        "o": "Deal progression",
+        "e": "Deal progression",
+        "a": "Deal progression",
+        "n": ""
+      },
+      {
         "id": "2776071515",
         "w": "2026-07-13",
         "d": "2026-07-14",
@@ -7920,11 +7933,24 @@
         "e": null,
         "a": null,
         "n": ""
+      },
+      {
+        "id": "2776109874",
+        "w": "2026-07-13",
+        "d": "2026-07-13",
+        "c": "Invicta",
+        "p": null,
+        "co": null,
+        "t": null,
+        "o": null,
+        "e": null,
+        "a": null,
+        "n": ""
       }
     ],
     "dashboard": {
       "thisWeek": "2026-07-13",
-      "planTotal": 11,
+      "planTotal": 12,
       "planByType": [
         {
           "k": "Intro / first meeting",
@@ -7990,8 +8016,8 @@
         }
       ],
       "lastWeek": "2026-07-06",
-      "lastWeekTotalActual": 3,
-      "lastWeekTotalTarget": 6,
+      "lastWeekTotalActual": 4,
+      "lastWeekTotalTarget": 7,
       "lastWeekOutcomes": [
         {
           "k": "Introduce Global Living",
@@ -8013,8 +8039,8 @@
         },
         {
           "k": "Deal progression",
-          "t": 1,
-          "a": 1,
+          "t": 2,
+          "a": 2,
           "v": 0
         },
         {
