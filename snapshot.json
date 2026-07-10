@@ -7970,7 +7970,7 @@
         "t": "Existing client meeting",
         "o": "Deal progression",
         "e": "Deal progression",
-        "a": "Qualify opportunity",
+        "a": "Deal progression",
         "n": ""
       },
       {
@@ -8073,14 +8073,14 @@
         {
           "k": "Qualify opportunity",
           "t": 1,
-          "a": 2,
-          "v": 1
+          "a": 1,
+          "v": 0
         },
         {
           "k": "Deal progression",
           "t": 3,
-          "a": 2,
-          "v": -1
+          "a": 3,
+          "v": 0
         },
         {
           "k": "Proposals / Presentation",
