@@ -111,3 +111,9 @@
 - Olle shifted EXP Realty's activity date from July 8 to July 9
 - Olle moved Tasha Patel's activity from July 13 to July 16
 - David has no changes this week
+
+## 2026-07-10
+
+- Olle Kjellberg added Nuvello Real Estate (Broker cohort) to his pipeline
+- Olle Kjellberg marked Amico opportunity as "Qualify opportunity"
+- David Ives no changes this week
