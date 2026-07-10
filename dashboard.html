@@ -193,6 +193,12 @@ html[data-theme="dark"] .daterange input{color-scheme:dark}
 
   <div class="grid kpis" id="kpis"></div>
 
+  <div class="card panel" style="margin-bottom:18px">
+    <div class="p-eyebrow">Attention</div>
+    <div class="p-head"><div class="p-title">Performance flags</div></div>
+    <div class="alerts" id="alerts"></div>
+  </div>
+
   <div class="grid panels" style="margin-bottom:18px">
     <div class="card panel">
       <div class="p-eyebrow">Activity over time</div>
@@ -319,11 +325,6 @@ html[data-theme="dark"] .daterange input{color-scheme:dark}
       <div class="p-eyebrow">Outcomes</div>
       <div class="p-head"><div class="p-title">Actual outcome distribution</div></div>
       <div class="hbars" id="outcomeBars"></div>
-    </div>
-    <div class="card panel">
-      <div class="p-eyebrow">Attention</div>
-      <div class="p-head"><div class="p-title">Performance flags</div></div>
-      <div class="alerts" id="alerts"></div>
     </div>
   </div>
 
@@ -1006,12 +1007,35 @@ function renderAlerts(){
     const listed=awaiting.slice(0,SHOW).map(r=>`${r.c||'(no client)'} <span style="color:var(--muted)">(${fmtD(r.d||r.w)})</span>`).join(' · ');
     a.push({t:'warn',h:`<b>${awaiting.length} meeting${awaiting.length>1?'s':''}</b> awaiting an actual outcome: ${listed}${awaiting.length>SHOW?` <span style="color:var(--muted)">+${awaiting.length-SHOW} more in the meeting log</span>`:''}`});
   }
-  const resched=recs.filter(r=>r.a==='Rescheduled').length;
-  if(resched>0) a.push({t:'warn',h:`<b>${resched} rescheduled</b> — follow-up needed to keep momentum.`});
-  // dup detection (same client+date)
-  const seen={},dups=new Set();
-  recs.forEach(r=>{const k=(r.c+'|'+r.d).toLowerCase(); if(r.c&&r.d){if(seen[k])dups.add(k);seen[k]=1;}});
-  if(dups.size>0) a.push({t:'warn',h:`<b>${dups.size} possible duplicate${dups.size>1?'s':''}</b> (same client &amp; date).`});
+  const fmtA=s=>{const d=parseD(s);return d?d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}):'no date';};
+  const LIST_CAP=5;
+  // Rescheduled meetings — named, oldest first (longest-waiting need chasing most)
+  const reschedRecs=recs.filter(r=>r.a==='Rescheduled')
+    .sort((x,y)=>(x.d||x.w||'').localeCompare(y.d||y.w||''));
+  if(reschedRecs.length>0){
+    const listed=reschedRecs.slice(0,LIST_CAP)
+      .map(r=>`${r.c||'(no client)'}${r.p&&!['na','n/a'].includes(r.p.toLowerCase())?` – ${r.p}`:''} <span style="color:var(--muted)">(${fmtA(r.d||r.w)})</span>`)
+      .join(' · ');
+    a.push({t:'warn',h:`<b>${reschedRecs.length} rescheduled</b> — follow-up needed to keep momentum: ${listed}${reschedRecs.length>LIST_CAP?` <span style="color:var(--muted)">+${reschedRecs.length-LIST_CAP} more in the meeting log</span>`:''}`});
+  }
+  // Possible duplicates — same CONTACT NAME + date (a client can legitimately have
+  // several meetings on one day with different people; the same contact twice is the
+  // real signal of a double-entry).
+  const byContact={};
+  recs.forEach(r=>{
+    const p=(r.p||'').trim();
+    if(!p || ['na','n/a'].includes(p.toLowerCase()) || !r.d) return;
+    const k=p.toLowerCase()+'|'+r.d;
+    (byContact[k]=byContact[k]||[]).push(r);
+  });
+  const dupGroups=Object.values(byContact).filter(g=>g.length>1)
+    .sort((x,y)=>(x[0].d||'').localeCompare(y[0].d||''));
+  if(dupGroups.length>0){
+    const listed=dupGroups.slice(0,LIST_CAP)
+      .map(g=>`${g[0].p} <span style="color:var(--muted)">(${g[0].c||'no client'} · ${fmtA(g[0].d)} · ×${g.length})</span>`)
+      .join(' · ');
+    a.push({t:'warn',h:`<b>${dupGroups.length} possible duplicate${dupGroups.length>1?'s':''}</b> (same contact &amp; date): ${listed}${dupGroups.length>LIST_CAP?` <span style="color:var(--muted)">+${dupGroups.length-LIST_CAP} more</span>`:''}`});
+  }
   // missing contact
   const noContact=recs.filter(r=>!r.p||['na','n/a',''].includes(r.p.toLowerCase())).length;
   if(noContact>0) a.push({t:'warn',h:`<b>${noContact} meeting${noContact>1?'s':''}</b> missing a named contact.`});
