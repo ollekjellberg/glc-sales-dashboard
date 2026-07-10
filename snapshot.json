@@ -7712,11 +7712,76 @@
         "e": null,
         "a": null,
         "n": "Need to schedule a meeting with Marcus in marketing next week to discuss more visibility for TGLC in their offices. Also to discuss with Rupert regarding introduction week - if we can come and present for 10-15 minutes and share our details during that time."
+      },
+      {
+        "id": "2775964990",
+        "w": "2026-07-06",
+        "d": "2026-07-08",
+        "c": "EXP Realty",
+        "p": "Alejandro Suarez",
+        "co": "Broker",
+        "t": "Existing client meeting",
+        "o": "Relationship advance",
+        "e": null,
+        "a": null,
+        "n": ""
+      },
+      {
+        "id": "2776020736",
+        "w": "2026-07-06",
+        "d": "2026-07-09",
+        "c": "Betterhomes",
+        "p": "Ryan Morgan",
+        "co": "Broker",
+        "t": "New client meeting",
+        "o": "Qualify opportunity",
+        "e": "Send Brochure",
+        "a": "Send Brochure",
+        "n": ""
+      },
+      {
+        "id": "2776020737",
+        "w": "2026-07-06",
+        "d": "2026-07-09",
+        "c": "Betterhomes",
+        "p": "Mathieu Diette",
+        "co": "Broker",
+        "t": "Existing client meeting",
+        "o": "Deal progression",
+        "e": null,
+        "a": null,
+        "n": ""
+      },
+      {
+        "id": "2775983390",
+        "w": "2026-07-06",
+        "d": "2026-07-10",
+        "c": "Engel & Völker",
+        "p": "Florian",
+        "co": "Investor/End client",
+        "t": "Existing client meeting",
+        "o": "Deal progression",
+        "e": "Deal progression",
+        "a": "Deal progression",
+        "n": ""
+      },
+      {
+        "id": "2776049510",
+        "w": "2026-07-06",
+        "d": "2026-07-08",
+        "c": "Engel & Völker",
+        "p": "Raj",
+        "co": "Investor/End client",
+        "t": "Existing client meeting",
+        "o": "Deal progression",
+        "e": "Qualify opportunity",
+        "a": "Qualify opportunity",
+        "n": ""
       }
     ],
     "dashboard": {
       "thisWeek": "2026-07-06",
-      "planTotal": 1,
+      "planTotal": 6,
       "planByType": [
         {
           "k": "Intro / first meeting",
@@ -7724,11 +7789,11 @@
         },
         {
           "k": "Existing client meeting",
-          "v": 1
+          "v": 5
         },
         {
           "k": "New client meeting",
-          "v": 0
+          "v": 1
         },
         {
           "k": "Event",
@@ -7754,11 +7819,11 @@
         },
         {
           "k": "Qualify opportunity",
-          "v": 0
+          "v": 1
         },
         {
           "k": "Deal progression",
-          "v": 0
+          "v": 1
         },
         {
           "k": "Proposals / Presentation",
@@ -7774,7 +7839,7 @@
         },
         {
           "k": "Send Brochure",
-          "v": 0
+          "v": 1
         },
         {
           "k": "Send Referral Agreement",
