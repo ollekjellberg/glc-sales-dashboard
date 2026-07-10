@@ -7716,7 +7716,7 @@
       {
         "id": "2775964990",
         "w": "2026-07-06",
-        "d": "2026-07-08",
+        "d": "2026-07-09",
         "c": "EXP Realty",
         "p": "Alejandro Suarez",
         "co": "Broker",
@@ -7924,7 +7924,7 @@
       {
         "id": "2776120362",
         "w": "2026-07-13",
-        "d": "2026-07-13",
+        "d": "2026-07-16",
         "c": "Tasha Patel",
         "p": "The Property",
         "co": "Broker",
@@ -7939,18 +7939,44 @@
         "w": "2026-07-13",
         "d": "2026-07-13",
         "c": "Invicta",
-        "p": null,
-        "co": null,
-        "t": null,
-        "o": null,
-        "e": null,
+        "p": "Elizabeth",
+        "co": "Investor/End client",
+        "t": "Existing client meeting",
+        "o": "Deal progression",
+        "e": "Deal progression",
+        "a": null,
+        "n": ""
+      },
+      {
+        "id": "2776147617",
+        "w": "2026-07-13",
+        "d": "2026-07-13",
+        "c": "Invicta",
+        "p": "Chris Green",
+        "co": "Investor/End client",
+        "t": "Existing client meeting",
+        "o": "Deal progression",
+        "e": "Deal progression",
+        "a": null,
+        "n": ""
+      },
+      {
+        "id": "2776068585",
+        "w": "2026-07-06",
+        "d": "2026-07-06",
+        "c": "Amico",
+        "p": "Ahmed Ibrahim",
+        "co": "Investor/End client",
+        "t": "Existing client meeting",
+        "o": "Deal progression",
+        "e": "Deal progression",
         "a": null,
         "n": ""
       }
     ],
     "dashboard": {
       "thisWeek": "2026-07-13",
-      "planTotal": 12,
+      "planTotal": 13,
       "planByType": [
         {
           "k": "Intro / first meeting",
@@ -7958,7 +7984,7 @@
         },
         {
           "k": "Existing client meeting",
-          "v": 3
+          "v": 5
         },
         {
           "k": "New client meeting",
@@ -7992,7 +8018,7 @@
         },
         {
           "k": "Deal progression",
-          "v": 1
+          "v": 3
         },
         {
           "k": "Proposals / Presentation",
@@ -8017,7 +8043,7 @@
       ],
       "lastWeek": "2026-07-06",
       "lastWeekTotalActual": 4,
-      "lastWeekTotalTarget": 7,
+      "lastWeekTotalTarget": 8,
       "lastWeekOutcomes": [
         {
           "k": "Introduce Global Living",
@@ -8039,9 +8065,9 @@
         },
         {
           "k": "Deal progression",
-          "t": 2,
+          "t": 3,
           "a": 2,
-          "v": 0
+          "v": -1
         },
         {
           "k": "Proposals / Presentation",
