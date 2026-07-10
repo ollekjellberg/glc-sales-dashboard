@@ -92,11 +92,14 @@ jobs:
         continue-on-error: true   # an email hiccup must never fail the data sync
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtp.office365.com
+          server_address: smtp.gmail.com
           server_port: 587
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          from: ${{ secrets.MAIL_USERNAME }}
+          # Recipients see "GLC Sales Dashboard" as the sender name. The address
+          # underneath is still the Gmail relay — this is a display name only,
+          # not a spoofed domain (which would fail SPF/DKIM and get junked).
+          from: GLC Sales Dashboard <${{ secrets.MAIL_USERNAME }}>
           to: ${{ secrets.MAIL_TO }}
           subject: "GLC Sales Dashboard — weekly update"
           body: |
