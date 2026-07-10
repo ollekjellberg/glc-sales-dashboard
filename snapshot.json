@@ -7970,17 +7970,30 @@
         "t": "Existing client meeting",
         "o": "Deal progression",
         "e": "Deal progression",
+        "a": "Qualify opportunity",
+        "n": ""
+      },
+      {
+        "id": "2776095820",
+        "w": "2026-07-13",
+        "d": "2026-07-15",
+        "c": "Nuvello Real Estate",
+        "p": "Paul Hampson",
+        "co": "Broker",
+        "t": "Intro / first meeting",
+        "o": "Proposals / Presentation",
+        "e": "Proposals / Quotes Issuance",
         "a": null,
         "n": ""
       }
     ],
     "dashboard": {
       "thisWeek": "2026-07-13",
-      "planTotal": 13,
+      "planTotal": 14,
       "planByType": [
         {
           "k": "Intro / first meeting",
-          "v": 4
+          "v": 5
         },
         {
           "k": "Existing client meeting",
@@ -8026,7 +8039,7 @@
         },
         {
           "k": "Proposals / Quotes Issuance",
-          "v": 0
+          "v": 1
         },
         {
           "k": "New lead created",
@@ -8042,7 +8055,7 @@
         }
       ],
       "lastWeek": "2026-07-06",
-      "lastWeekTotalActual": 4,
+      "lastWeekTotalActual": 5,
       "lastWeekTotalTarget": 8,
       "lastWeekOutcomes": [
         {
@@ -8060,8 +8073,8 @@
         {
           "k": "Qualify opportunity",
           "t": 1,
-          "a": 1,
-          "v": 0
+          "a": 2,
+          "v": 1
         },
         {
           "k": "Deal progression",
