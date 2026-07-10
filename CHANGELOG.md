@@ -98,3 +98,8 @@
 - Engel & Völker also added under the Investor/End client cohort
 - Wasl Properties added under the Developer cohort
 - David Ives no changes this week
+
+## 2026-07-10
+
+- Olle Kjellberg added two entries for Invicta: one marked as deal progression in the Investor/End client cohort, and a follow-up entry the following week
+- David Ives has no changes this week
