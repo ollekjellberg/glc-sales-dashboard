@@ -7770,30 +7770,173 @@
         "w": "2026-07-06",
         "d": "2026-07-08",
         "c": "Engel & Völker",
-        "p": "Raj",
+        "p": "Lauritz",
         "co": "Investor/End client",
         "t": "Existing client meeting",
         "o": "Deal progression",
         "e": "Qualify opportunity",
         "a": "Qualify opportunity",
         "n": ""
+      },
+      {
+        "id": "2776071515",
+        "w": "2026-07-13",
+        "d": "2026-07-14",
+        "c": "KVB Properties",
+        "p": "Hardip Judge",
+        "co": "Broker",
+        "t": "Intro / first meeting",
+        "o": "Introduce Global Living",
+        "e": "Send Brochure",
+        "a": null,
+        "n": ""
+      },
+      {
+        "id": "2776021660",
+        "w": "2026-07-13",
+        "d": "2026-07-13",
+        "c": "Engel & Völker",
+        "p": "James Pattersson",
+        "co": "Broker",
+        "t": "Existing client meeting",
+        "o": "Relationship advance",
+        "e": null,
+        "a": null,
+        "n": ""
+      },
+      {
+        "id": "2776071457",
+        "w": "2026-07-13",
+        "d": "2026-07-16",
+        "c": "Engel & Völker",
+        "p": "Raj",
+        "co": "Investor/End client",
+        "t": "New client meeting",
+        "o": "Deal progression",
+        "e": "Deal progression",
+        "a": null,
+        "n": ""
+      },
+      {
+        "id": "2776071875",
+        "w": "2026-07-13",
+        "d": "2026-07-14",
+        "c": "Betterhomes",
+        "p": "Theodore Felici",
+        "co": "Broker",
+        "t": "New client meeting",
+        "o": "Qualify opportunity",
+        "e": "Qualify opportunity",
+        "a": null,
+        "n": ""
+      },
+      {
+        "id": "2776071835",
+        "w": "2026-07-13",
+        "d": "2026-07-14",
+        "c": "Betterhomes",
+        "p": "Arthur Ludlam",
+        "co": "Broker",
+        "t": "New client meeting",
+        "o": "Qualify opportunity",
+        "e": "Qualify opportunity",
+        "a": null,
+        "n": ""
+      },
+      {
+        "id": "2776073567",
+        "w": "2026-07-13",
+        "d": "2026-07-16",
+        "c": "Knight Frank",
+        "p": "Vera Zabelina",
+        "co": "Broker",
+        "t": "Intro / first meeting",
+        "o": "Introduce Global Living",
+        "e": "Send Brochure",
+        "a": null,
+        "n": ""
+      },
+      {
+        "id": "2776104532",
+        "w": "2026-07-13",
+        "d": "2026-07-17",
+        "c": "Wasl Properties",
+        "p": "Jenny Chammas",
+        "co": "Developer",
+        "t": "Intro / first meeting",
+        "o": "Introduce Global Living",
+        "e": "Send Brochure",
+        "a": null,
+        "n": ""
+      },
+      {
+        "id": "2776117464",
+        "w": "2026-07-13",
+        "d": "2026-07-15",
+        "c": "Crompton Partners",
+        "p": "Chene Bredenhann",
+        "co": "Broker",
+        "t": "Intro / first meeting",
+        "o": "Introduce Global Living",
+        "e": "Send Brochure",
+        "a": null,
+        "n": ""
+      },
+      {
+        "id": "2776105900",
+        "w": "2026-07-13",
+        "d": "2026-07-15",
+        "c": "Metropolitan Premium Properties",
+        "p": "Abdul Jalil",
+        "co": "Broker",
+        "t": "New client meeting",
+        "o": "Qualify opportunity",
+        "e": "Qualify opportunity",
+        "a": null,
+        "n": ""
+      },
+      {
+        "id": "2776075136",
+        "w": "2026-07-13",
+        "d": "2026-07-15",
+        "c": "PSI Assets (AD)",
+        "p": "Farah Achi",
+        "co": "Broker",
+        "t": "Existing client meeting",
+        "o": "Introduce Global Living",
+        "e": "Send Brochure",
+        "a": null,
+        "n": ""
+      },
+      {
+        "id": "2776120362",
+        "w": "2026-07-13",
+        "d": "2026-07-13",
+        "c": "Tasha Patel",
+        "p": "The Property",
+        "co": "Broker",
+        "t": "Existing client meeting",
+        "o": "Relationship advance",
+        "e": null,
+        "a": null,
+        "n": ""
       }
     ],
     "dashboard": {
-      "thisWeek": "2026-07-06",
-      "planTotal": 6,
+      "thisWeek": "2026-07-13",
+      "planTotal": 11,
       "planByType": [
         {
           "k": "Intro / first meeting",
-          "v": 0
+          "v": 4
         },
         {
           "k": "Existing client meeting",
-          "v": 5
+          "v": 3
         },
         {
           "k": "New client meeting",
-          "v": 1
+          "v": 4
         },
         {
           "k": "Event",
@@ -7819,7 +7962,7 @@
         },
         {
           "k": "Qualify opportunity",
-          "v": 1
+          "v": 3
         },
         {
           "k": "Deal progression",
@@ -7839,16 +7982,16 @@
         },
         {
           "k": "Send Brochure",
-          "v": 1
+          "v": 5
         },
         {
           "k": "Send Referral Agreement",
           "v": 0
         }
       ],
-      "lastWeek": "2026-06-15",
-      "lastWeekTotalActual": 4,
-      "lastWeekTotalTarget": 4,
+      "lastWeek": "2026-07-06",
+      "lastWeekTotalActual": 3,
+      "lastWeekTotalTarget": 6,
       "lastWeekOutcomes": [
         {
           "k": "Introduce Global Living",
@@ -7864,14 +8007,14 @@
         },
         {
           "k": "Qualify opportunity",
-          "t": 0,
-          "a": 0,
+          "t": 1,
+          "a": 1,
           "v": 0
         },
         {
           "k": "Deal progression",
-          "t": 2,
-          "a": 2,
+          "t": 1,
+          "a": 1,
           "v": 0
         },
         {
@@ -7894,8 +8037,8 @@
         },
         {
           "k": "Send Brochure",
-          "t": 2,
-          "a": 2,
+          "t": 1,
+          "a": 1,
           "v": 0
         },
         {
