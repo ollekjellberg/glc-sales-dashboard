@@ -128,3 +128,9 @@
 - Olle Kjellberg added two new clients this week: Betterhomes (Investor/End client cohort) and White & Co (Broker cohort)
 - Olle's total client count increased from 329 to 331
 - Amico was updated to remove its "Deal progression" status
+
+## 2026-07-13
+
+- Olle updated Betterhomes notes to reference Global Living instead of TGLC
+- Olle moved Tasha Patel's follow-up date from July 16 to July 17, 2026
+- David has no changes this week
