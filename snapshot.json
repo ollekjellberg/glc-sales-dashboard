@@ -7970,7 +7970,7 @@
         "t": "Existing client meeting",
         "o": "Deal progression",
         "e": "Deal progression",
-        "a": "Deal progression",
+        "a": null,
         "n": ""
       },
       {
@@ -7985,15 +7985,41 @@
         "e": "Proposals / Quotes Issuance",
         "a": null,
         "n": ""
+      },
+      {
+        "id": "2779668669",
+        "w": "2026-07-13",
+        "d": "2026-07-13",
+        "c": "Betterhomes",
+        "p": "Simone",
+        "co": "Investor/End client",
+        "t": "Intro / first meeting",
+        "o": "Proposals / Presentation",
+        "e": "Proposals / Quotes Issuance",
+        "a": null,
+        "n": ""
+      },
+      {
+        "id": "2779517157",
+        "w": "2026-07-13",
+        "d": "2026-07-13",
+        "c": "White & Co",
+        "p": "Alice Young",
+        "co": "Broker",
+        "t": "New client meeting",
+        "o": "Qualify opportunity",
+        "e": "Qualify opportunity",
+        "a": null,
+        "n": ""
       }
     ],
     "dashboard": {
       "thisWeek": "2026-07-13",
-      "planTotal": 14,
+      "planTotal": 16,
       "planByType": [
         {
           "k": "Intro / first meeting",
-          "v": 5
+          "v": 6
         },
         {
           "k": "Existing client meeting",
@@ -8001,7 +8027,7 @@
         },
         {
           "k": "New client meeting",
-          "v": 4
+          "v": 5
         },
         {
           "k": "Event",
@@ -8027,7 +8053,7 @@
         },
         {
           "k": "Qualify opportunity",
-          "v": 3
+          "v": 4
         },
         {
           "k": "Deal progression",
@@ -8039,7 +8065,7 @@
         },
         {
           "k": "Proposals / Quotes Issuance",
-          "v": 1
+          "v": 2
         },
         {
           "k": "New lead created",
@@ -8055,7 +8081,7 @@
         }
       ],
       "lastWeek": "2026-07-06",
-      "lastWeekTotalActual": 5,
+      "lastWeekTotalActual": 4,
       "lastWeekTotalTarget": 8,
       "lastWeekOutcomes": [
         {
@@ -8079,8 +8105,8 @@
         {
           "k": "Deal progression",
           "t": 3,
-          "a": 3,
-          "v": 0
+          "a": 2,
+          "v": -1
         },
         {
           "k": "Proposals / Presentation",
