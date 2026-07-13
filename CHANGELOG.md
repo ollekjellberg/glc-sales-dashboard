@@ -122,3 +122,9 @@
 
 - Olle Kjellberg moved Amico from Qualify opportunity to Deal progression
 - David Ives has no changes this week
+
+## 2026-07-13
+
+- Olle Kjellberg added two new clients this week: Betterhomes (Investor/End client cohort) and White & Co (Broker cohort)
+- Olle's total client count increased from 329 to 331
+- Amico was updated to remove its "Deal progression" status
