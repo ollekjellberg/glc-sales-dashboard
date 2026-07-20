@@ -134,3 +134,13 @@
 - Olle updated Betterhomes notes to reference Global Living instead of TGLC
 - Olle moved Tasha Patel's follow-up date from July 16 to July 17, 2026
 - David has no changes this week
+
+## 2026-07-20
+
+- David Ives added 17 entries across the week, bringing total from 275 to 292. New clients include Investor - City Tower, Alliance Bridge, Di Salvo Realty, Vogue, Betterhomes, H&H, Sodic Properties, GAA, Earlswood Homes, White & Co, Savills, and Intent.
+- David Ives marked 6 existing entries as "Deal progression": two with Investor, one with Ellington, two with Investor - City Tower, and one with Betterhomes.
+- Olle Kjellberg added 14 entries, increasing total from 331 to 344. New broker contacts include Dejavu Properties, Wasl Properties, Knight Frank, Nuvello Real Estate, Crompton Partners, Betterhomes, Hyde Real Estate, and Engel & Völker.
+- Olle Kjellberg removed PSI Assets (AD) from the broker cohort.
+- Olle Kjellberg advanced multiple deals: Knight Frank and Nuvello Real Estate moved to "Rescheduled," Engel & Völker and two Invicta entries moved to "Deal progression," and Betterhomes moved to "Proposals / Quotes Issuance."
+- Olle Kjellberg sent brochures to KVB Properties, Wasl Properties, and Crompton Partners.
+- Olle Kjellberg qualified two opportunities: one with Betterhomes and one with White & Co.
