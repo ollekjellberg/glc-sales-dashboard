@@ -358,7 +358,7 @@
         "w": "2026-02-09",
         "d": "2026-02-10",
         "c": "White & Co",
-        "p": null,
+        "p": "Indi Jones",
         "co": "Broker",
         "t": "New client meeting",
         "o": "Introduce Global Living",
@@ -436,7 +436,7 @@
         "w": "2026-02-09",
         "d": "2026-02-12",
         "c": "West One",
-        "p": null,
+        "p": "Caine Martin & Kelly Hand",
         "co": "Developer",
         "t": "New client meeting",
         "o": "Introduce Global Living",
@@ -475,7 +475,7 @@
         "w": "2026-02-16",
         "d": "2026-02-16",
         "c": "Betterhomes",
-        "p": null,
+        "p": "Rupert Simmons",
         "co": "Broker",
         "t": "Intro / first meeting",
         "o": "Introduce Global Living",
@@ -656,7 +656,7 @@
         "id": "2770675843",
         "w": "2026-03-02",
         "d": "2026-03-03",
-        "c": null,
+        "c": "Cooney",
         "p": "Paul Cooney",
         "co": "Broker",
         "t": "Existing client meeting",
@@ -812,7 +812,7 @@
         "id": "2770573503",
         "w": "2026-03-09",
         "d": "2026-03-09",
-        "c": null,
+        "c": "Play book",
         "p": "Joshua Ashley Collins",
         "co": "Other",
         "t": "Intro / first meeting",
@@ -1865,7 +1865,7 @@
         "id": "2770579126",
         "w": "2026-04-20",
         "d": "2026-04-23",
-        "c": null,
+        "c": "Blacksand",
         "p": "David Duke",
         "co": "Developer",
         "t": "Existing client meeting",
@@ -3322,7 +3322,7 @@
         "w": "2026-06-29",
         "d": "2026-06-30",
         "c": "Investor - City Tower",
-        "p": null,
+        "p": "NA",
         "co": "Investor/End client",
         "t": "New client meeting",
         "o": "Proposals / Presentation",
@@ -3400,7 +3400,7 @@
         "w": "2026-06-29",
         "d": "2026-07-01",
         "c": "Betterhomes",
-        "p": null,
+        "p": "Rupert Simmons",
         "co": "Broker",
         "t": "Existing client meeting",
         "o": "Relationship advance",
@@ -3536,19 +3536,6 @@
         "o": "Qualify opportunity",
         "e": "Proposals / Quotes Issuance",
         "a": "Deal progression",
-        "n": ""
-      },
-      {
-        "id": "2770577493",
-        "w": "2026-07-06",
-        "d": "2026-07-07",
-        "c": null,
-        "p": null,
-        "co": null,
-        "t": null,
-        "o": null,
-        "e": null,
-        "a": null,
         "n": ""
       },
       {
@@ -3751,7 +3738,7 @@
         "w": "2026-07-20",
         "d": "2026-07-22",
         "c": "Savills",
-        "p": "Flore Whitehead",
+        "p": "Flora Whitehead",
         "co": "Broker",
         "t": "Existing client meeting",
         "o": "Relationship advance",
@@ -3784,24 +3771,11 @@
         "e": null,
         "a": null,
         "n": ""
-      },
-      {
-        "id": "2793515395",
-        "w": "2026-07-20",
-        "d": "2026-07-24",
-        "c": "Intent",
-        "p": "Chris ciraolo",
-        "co": "Other",
-        "t": "Existing client meeting",
-        "o": "Relationship advance",
-        "e": null,
-        "a": null,
-        "n": ""
       }
     ],
     "dashboard": {
       "thisWeek": "2026-07-20",
-      "planTotal": 17,
+      "planTotal": 16,
       "planByType": [
         {
           "k": "Intro / first meeting",
@@ -3809,7 +3783,7 @@
         },
         {
           "k": "Existing client meeting",
-          "v": 13
+          "v": 12
         },
         {
           "k": "New client meeting",
@@ -3868,7 +3842,7 @@
       ],
       "lastWeek": "2026-07-06",
       "lastWeekTotalActual": 7,
-      "lastWeekTotalTarget": 9,
+      "lastWeekTotalTarget": 8,
       "lastWeekOutcomes": [
         {
           "k": "Introduce Global Living",
