@@ -144,3 +144,10 @@
 - Olle Kjellberg advanced multiple deals: Knight Frank and Nuvello Real Estate moved to "Rescheduled," Engel & Völker and two Invicta entries moved to "Deal progression," and Betterhomes moved to "Proposals / Quotes Issuance."
 - Olle Kjellberg sent brochures to KVB Properties, Wasl Properties, and Crompton Partners.
 - Olle Kjellberg qualified two opportunities: one with Betterhomes and one with White & Co.
+
+## 2026-07-20
+
+- David Ives dropped 2 deals this week, bringing his total from 292 to 290
+- Lost an unassigned deal from the week of July 6
+- Lost the Intent account (Other cohort) from the week of July 20
+- Olle Kjellberg has no changes this week
